@@ -37,7 +37,7 @@ EPUBJS.Reader = function(bookPath, _options) {
 				bookKey : undefined,
 				styles : undefined,
 				sidebarReflow: false,
-				generatePagination: true,
+				generatePagination: false,
 				history: true
 		});
 
