@@ -763,10 +763,13 @@ input:-ms-placeholder {
     #viewer {
       width: 256px;
       height: 432px;
+      position: relative;
     }
     #viewer iframe {
        width: 256px;
        height: 432px;
+       top: -30px;
+
     }
 }
 /* For iPhone landscape layouts only */
