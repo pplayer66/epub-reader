@@ -761,17 +761,15 @@ input:-ms-placeholder {
 /* For iPhone portrait layouts only */
 @media only screen and (max-device-width: 480px) and (orientation: portrait) {
     #viewer {
-      width: 256px;
-      height: 432px;
+      width: 260px;
+      height: 450px;
       position: relative;
+      top: -15px;
     }
     #viewer iframe {
       position: absolute;
-       width: 256px;
-       height: 432px;
-       top: -20px;
-       transform: translateY(-30px);
-
+       width: 260px;
+       height: 450px;
     }
 }
 /* For iPhone landscape layouts only */
