@@ -689,6 +689,7 @@ input:-ms-placeholder {
   #viewer{
     width: 80%;
     margin-left: 10%;
+    overflow-y: auto;
   }
 
   #prev {
@@ -713,6 +714,7 @@ input:-ms-placeholder {
     -webkit-transition: -webkit-transform .3s;
     -moz-transition: -moz-transform .3s;
     -ms-transition: -moz-transform .3s;
+    overflow-y: auto;
   }
 
   #main.closed {
@@ -749,6 +751,7 @@ input:-ms-placeholder {
     #viewer iframe {
         width: 460px;
         height: 740px;
+        overflow-y: auto;
     }
 }
  /*For iPad landscape layouts only */
@@ -756,24 +759,20 @@ input:-ms-placeholder {
     #viewer iframe {
         width: 460px;
         height: 415px;
+        overflow-y: auto;
     }
 }
 /* For iPhone portrait layouts only */
 @media only screen and (max-device-width: 480px) and (orientation: portrait) {
-    body{
-      overflow: scroll;
-    }
     #viewer {
       width: 256px;
       height: 432px;
-      -ms-overflow-style: scrollbar;
-      overflow-style: scrollbar;
-      overflow-y: scroll;
+      overflow-y: auto;
     }
     #viewer iframe {
        width: 256px;
        height: 432px;
-       overflow-y: scroll;
+       overflow-y: auto;
     }
 }
 /* For iPhone landscape layouts only */
@@ -781,6 +780,7 @@ input:-ms-placeholder {
     #viewer iframe {
         width: 256px;
         height: 124px;
+        overflow-y: auto;
     }
 }
 
