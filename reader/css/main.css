@@ -762,14 +762,14 @@ input:-ms-placeholder {
 @media only screen and (max-device-width: 480px) and (orientation: portrait) {
     #viewer {
       width: 260px;
-      height: 450px;
+      height: 4300px;
       position: relative;
       top: -15px;
     }
     #viewer iframe {
       position: absolute;
        width: 260px;
-       height: 450px;
+       height: 430px;
     }
 }
 /* For iPhone landscape layouts only */
