@@ -766,7 +766,7 @@ input:-ms-placeholder {
     }
     #viewer iframe {
        width: 256px;
-       height: 432px;
+       height: auto;
     }
 }
 /* For iPhone landscape layouts only */

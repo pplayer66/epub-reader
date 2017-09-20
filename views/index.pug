@@ -16,7 +16,7 @@ html.no-js
 		script(src="js/libs/screenfull.min.js")
 		script(src="js/epub.min.js")
 		script(src="js/hooks.min.js")
-		script(src="js/reader.min.js")
+		script(src="js/reader.js")
 	body
 		#sidebar
 			#panels
@@ -28,6 +28,9 @@ html.no-js
 				ul#searchResults
 			#bookmarksView.view
 				ul#bookmarks
+					each bm, idx in bookmarks
+						li.list_item(id=`bookmark-${idx}`)
+							a(href=bm).bookmark_link= bm
 			#notesView.view
 				#new-note
 					textarea#note-text
