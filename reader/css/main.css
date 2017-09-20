@@ -760,13 +760,20 @@ input:-ms-placeholder {
 }
 /* For iPhone portrait layouts only */
 @media only screen and (max-device-width: 480px) and (orientation: portrait) {
+    body{
+      overflow: scroll;
+    }
     #viewer {
       width: 256px;
       height: 432px;
+      -ms-overflow-style: scrollbar;
+      overflow-style: scrollbar;
+      overflow-y: scroll;
     }
     #viewer iframe {
        width: 256px;
-       height: auto;
+       height: 432px;
+       overflow-y: scroll;
     }
 }
 /* For iPhone landscape layouts only */
