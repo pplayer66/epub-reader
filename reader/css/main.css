@@ -766,9 +766,11 @@ input:-ms-placeholder {
       position: relative;
     }
     #viewer iframe {
+      position: absolute;
        width: 256px;
        height: 432px;
-       top: -30px;
+       top: -20px;
+       transform: translateY(-30px);
 
     }
 }
