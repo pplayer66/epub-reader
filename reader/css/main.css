@@ -753,7 +753,7 @@ input:-ms-placeholder {
         height: 740px;
         overflow-y: auto;*/
       border:none;
-      position: fixed;
+      /*position: fixed;*/
       width:100%;
       height:100%;
       overflow: auto;
@@ -767,7 +767,7 @@ input:-ms-placeholder {
         height: 415px;
         overflow-y: auto;*/
       border:none;
-      position: fixed;
+      /*position: fixed;*/
       width:100%;
       height:100%;
       overflow: auto;
@@ -780,7 +780,7 @@ input:-ms-placeholder {
       height: 432px;
       overflow-y: auto;*/
       border:none;
-      position: fixed;
+      /*position: fixed;*/
       width:100%;
       height:100%;
       overflow: auto;
@@ -790,7 +790,7 @@ input:-ms-placeholder {
        height: 432px;
        overflow-y: auto;*/
       border:none;
-      position: fixed;
+      /*position: fixed;*/
       width:100%;
       height:100%;
       overflow: auto;
@@ -803,7 +803,7 @@ input:-ms-placeholder {
         height: 124px;
         overflow-y: auto;*/
       border:none;
-      position: fixed;
+      /*position: fixed;*/
       width:100%;
       height:100%;
       overflow: auto;
