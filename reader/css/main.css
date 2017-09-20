@@ -762,7 +762,7 @@ input:-ms-placeholder {
 @media only screen and (max-device-width: 480px) and (orientation: portrait) {
     #viewer {
       width: 260px;
-      height: 4300px;
+      height: 430px;
       position: relative;
       top: -15px;
     }
