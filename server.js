@@ -6,12 +6,12 @@ const port = process.env.PORT || 3000;
 app.set('view engine', 'pug');
 app.use(express.static('reader'));
 
-app.get('/', (req, res)=>{
+app.get('/reader', (req, res)=>{
 	res.render('index');
 });
 
 app.get('*', (req, res)=>{
-	res.redirect('/');
+	res.redirect('/reader');
 });
 
 app.listen(port, ()=>console.log('server is running on port', port));
