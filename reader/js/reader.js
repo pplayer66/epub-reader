@@ -19,34 +19,16 @@ EPUBJS.reader.plugins = {}; //-- Attach extra Controllers as plugins (like searc
 
 })(window, jQuery);
 
-EPUBJS.Hooks.register("beforeChapterDisplay").pageTurns = function (callback, renderer) {
-    var lock = false;
-    var arrowKeys = function (e) {
-        e.preventDefault();
-        if (lock) return;
-
-        if (e.keyCode == 37) {
-            ePubViewer.Book.prevPage();
-            lock = true;
-            setTimeout(function () {
-                lock = false;
-            }, 100);
-            return false;
-        }
-
-        if (e.keyCode == 39) {
-            ePubViewer.Book.nextPage();
-            lock = true;
-            setTimeout(function () {
-                lock = false;
-            }, 100);
-            return false;
-        }
-
-    };
-    renderer.doc.addEventListener('keydown', arrowKeys, false);
-    if (callback) callback();
-}
+EPUBJS.Hooks.register('beforeChapterDisplay').swipeDetection = function (callback, renderer) {
+    var script = renderer.doc.createElement('script');
+    script.text = "!function(a,b,c){function f(a){d=a.touches[0].clientX,e=a.touches[0].clientY}function g(f){if(d&&e){var g=f.touches[0].clientX,h=f.touches[0].clientY,i=d-g,j=e-h;Math.abs(i)>Math.abs(j)&&(i>a?b():i<0-a&&c()),d=null,e=null}}var d=null,e=null;document.addEventListener('touchstart',f,!1),document.addEventListener('touchmove',g,!1)}";
+    /* (threshold, leftswipe, rightswipe) */
+    script.text += "(10,function(){parent.ePubViewer.Book.nextPage()},function(){parent.ePubViewer.Book.prevPage()});"
+    renderer.doc.head.appendChild(script);
+    if (callback) {
+        callback();
+    }
+};
 
 EPUBJS.Reader = function(bookPath, _options) {
 		var reader = this;
