@@ -7,6 +7,7 @@ html.no-js
 		meta(name="description", content="")
 		meta(name="viewport", content="width=device-width, user-scalable=no")
 		meta(name="apple-mobile-web-app-capable", content="yes")
+		link(href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet")
 		link(rel="stylesheet", href="css/normalize.css")
 		link(rel="stylesheet", href="css/main.css")
 		link(rel="stylesheet", href="css/popup.css")
@@ -24,14 +25,18 @@ html.no-js
 				a#show-Bookmarks.show_view.icon-bookmark(data-view="Bookmarks") Bookmarks
 				a#show-Notes.show_view.icon-edit(data-view="Notes") Notes
 			#tocView.view
+				h3.viewTitle Главы
 			#searchView.view
 				ul#searchResults
 			#bookmarksView.view
+				h3.viewTitle Закладки
 				ul#bookmarks
 					each bm, idx in bookmarks
-						li.list_item(id=`bookmark-${idx}`)
-							a(href=bm).bookmark_link= bm
+						- var bookmark = `bookmark-${idx}`
+						li.list_item(id= bookmark)
+							a(href=bm).bookmark_link= bookmark
 			#notesView.view
+				h3.viewTitle(style='margin-left:15px') Заметки
 				#new-note
 					textarea#note-text
 					button#note-anchor Anchor
@@ -46,20 +51,16 @@ html.no-js
 					span#chapter-title
 				#title-controls
 					a#bookmark.icon-bookmark-empty Bookmark
-					a#setting.icon-cog Settings
 					a#fullscreen.icon-resize-full Fullscreen
 			#divider
 			#prev.arrow ‹
 			#viewer
 			#next.arrow ›
+			#progress
+				span#progress-title Вы прочитали
+				#progress-range
+					#progress-status
+					span#progress-value
 			#loader
 				img(src="img/loader.gif")
-		#settings-modal.modal.md-effect-1
-			.md-content
-				h3 Settings
-				div
-					p
-						input#sidebarReflow(type="checkbox", name="sidebarReflow")
-						| Reflow text when sidebars are open.
-				.closer.icon-cancel-circled
 		.overlay

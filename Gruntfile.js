@@ -34,12 +34,13 @@ module.exports = function(grunt) {
 					{src: 'node_modules/localforage/dist/localforage.min.js', dest: 'reader/js/libs/localforage.min.js'},
 					{src: 'libs/jszip/jszip.min.js', dest: 'reader/js/libs/zip.min.js'},
 					{src: 'node_modules/jquery/dist/jquery.min.js', dest:'reader/js/libs/jquery.min.js'},
-				  {src: 'node_modules/screenfull/dist/screenfull.js', dest: 'reader/js/libs/screenfull.js'},
+					{src: 'node_modules/screenfull/dist/screenfull.js', dest: 'reader/js/libs/screenfull.js'},
 					{src: 'src/plugins/search.js', dest: 'reader/js/plugins/search.js'},
 					{src: 'src/plugins/hypothesis.js', dest: 'reader/js/plugins/hypothesis.js'},
 					{src: 'hooks/extensions/highlight.js', dest: 'reader/js/hooks/extensions/highlight.js'},
 					{src: 'node_modules/epubjs/build/epub.min.js', dest: 'reader/js/epub.min.js'},
-					{src: 'node_modules/epubjs/build/hooks.min.js', dest: 'reader/js/hooks.min.js'}
+					{src: 'node_modules/epubjs/build/hooks.min.js', dest: 'reader/js/hooks.min.js'},
+
 				]
 			},
 		},

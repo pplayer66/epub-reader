@@ -9,6 +9,10 @@
   font-style: normal;
 }
 
+*{
+  font-family: 'Roboto', sans-serif;
+}
+
 body {
   background: #4e4e4e;
   overflow: hidden;
@@ -19,6 +23,7 @@ a{
 }
 ul{
   list-style-type: none;
+  padding-left: 0;
 }
 #main {
   /* height: 500px; */
@@ -128,6 +133,43 @@ ul{
   right: 40px;
 }
 
+#progress {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  width: 200px;
+  margin-left: -100px;
+  text-align: center;
+  display: none;
+}
+#progress-title{
+  font-size: 12px;
+  color: #777;
+}
+#progress-range{
+  position: relative;
+  background: transparent;
+  height: 15px;
+  border: 1px solid #89c9e2;
+}
+#progress-value{
+    color: #222;
+    font-size: 14px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10 !important;
+}
+#progress-status{
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0;
+  background: #77bee0;
+  z-index: 5 !important;
+}
+
 .arrow {
   position: absolute;
   top: 50%;
@@ -154,7 +196,7 @@ ul{
 }
 
 #sidebar {
-  background: #1b273c;
+  background: #2c3e50;
   position: absolute;
   /* left: -260px; */
   /* -webkit-transform: translate(-260px, 0);
@@ -193,7 +235,7 @@ ul{
 }
 
 #panels {
-  background: #2f3858;
+  background: #273750;
   position: absolute;
   left: 0;
   top: 0;
@@ -320,8 +362,6 @@ input:-ms-placeholder {
   -ms-transition: visibility 0 ease .5s;
 }
 
-
-
 #sidebar.open #tocView,
 #sidebar.open #bookmarksView {
   overflow-y: auto;
@@ -339,13 +379,11 @@ input:-ms-placeholder {
 #bookmarksView > ul {
   margin-top: 15px;
   margin-bottom: 50px;
-  padding-left: 20px;
   display: block;
 }
 
 #tocView li,
 #bookmarksView li {
-  margin-bottom:10px;
   width: 225px;
   font-family: Georgia, "Times New Roman", Times, serif;
   list-style: none;
@@ -358,8 +396,17 @@ input:-ms-placeholder {
   list-style: none;
 }
 
+.list_item{
+  padding: 10px;
+  background-color: #33485d;
+  border-bottom: 1px solid #2c3e50;
+}
+.list_item:hover{
+  background: #3e5161;
+}
 .list_item a {
-  color: #c3c0ae;
+  color: #fff;
+  font-size: 14px;
   text-decoration: none;
 }
 
@@ -421,50 +468,19 @@ input:-ms-placeholder {
   width: 300px;
   height: 100%;
   display: none;
+  padding-left: 20px;
   padding-top: 50px;
   overflow-y: auto;
 }
 
-#searchResults {
-  margin-bottom: 50px;
-  padding-left: 20px;
-  display: block;
+.viewTitle{
+  font-size: 20px;
+  color: #fff;
+  font-weight: 300;
 }
 
-#searchResults li {
-  margin-bottom:10px;
-  width: 225px;
-  font-family: Georgia, "Times New Roman", Times, serif;
-  list-style: none;
-}
-
-#searchResults a {
-  color: #AAA;
-  text-decoration: none;
-}
-
-#searchResults p {
-  text-decoration: none;
-  font-size: 12px;
-  line-height: 16px;
-}
-
-#searchResults p .match {
-  background: #ccc;
-  color: #000;
-}
-
-#searchResults li > p {
-  color: #AAA;
-}
-
-#searchResults li a:hover {
-  color: #E2E2E2;
-}
-
-#searchView.shown {
-  display: block;
-  overflow-y: scroll;
+#notesView{
+  padding-left: 0;
 }
 
 #notes {

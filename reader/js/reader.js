@@ -37,7 +37,7 @@ EPUBJS.Reader = function(bookPath, _options) {
 				bookKey : undefined,
 				styles : undefined,
 				sidebarReflow: false,
-				generatePagination: false,
+				generatePagination: true,
 				history: true
 		});
 
@@ -85,7 +85,6 @@ EPUBJS.Reader = function(bookPath, _options) {
 		book.renderTo("viewer");
 
 		reader.ReaderController = EPUBJS.reader.ReaderController.call(reader, book);
-		reader.SettingsController = EPUBJS.reader.SettingsController.call(reader, book);
 		reader.ControlsController = EPUBJS.reader.ControlsController.call(reader, book);
 		reader.SidebarController = EPUBJS.reader.SidebarController.call(reader, book);
 		reader.BookmarksController = EPUBJS.reader.BookmarksController.call(reader, book);
@@ -337,7 +336,16 @@ EPUBJS.reader.BookmarksController = function() {
 		};
 		
 		var counter = 0;
+
 		
+		$bookmarks.on('click', function(event){
+			event.preventDefault();
+			if (!event.target.hasAttribute('href'))
+				return;
+			var cfi = event.target.getAttribute('href');
+			book.gotoCfi(cfi);
+		});
+
 		var createBookmarkItem = function(cfi) {
 				var listitem = document.createElement("li"),
 								link = document.createElement("a");
@@ -346,16 +354,15 @@ EPUBJS.reader.BookmarksController = function() {
 				listitem.classList.add('list_item');
 				
 				//-- TODO: Parse Cfi
-				link.textContent = cfi;
+				link.textContent = `Bookmark-${counter}`;
 				link.href = cfi;
-
 				link.classList.add('bookmark_link');
 				
-				link.addEventListener("click", function(event){
-								var cfi = this.getAttribute('href');
-								book.gotoCfi(cfi);
-								event.preventDefault();
-				}, false);
+				// link.addEventListener("click", function(event){
+				// 				var cfi = this.getAttribute('href');
+				// 				book.gotoCfi(cfi);
+				// 				event.preventDefault();
+				// }, false);
 				
 				listitem.appendChild(link);
 				
@@ -396,7 +403,6 @@ EPUBJS.reader.ControlsController = function(book) {
 						$slider = $("#slider"),
 						$main = $("#main"),
 						$sidebar = $("#sidebar"),
-						$settings = $("#setting"),
 						$bookmark = $("#bookmark");
 
 		var goOnline = function() {
@@ -445,10 +451,6 @@ EPUBJS.reader.ControlsController = function(book) {
 						});
 				}
 		}
-
-		$settings.on("click", function() {
-				reader.SettingsController.show();
-		});
 
 		$bookmark.on("click", function() {
 				var cfi = reader.book.getCurrentLocationCfi();
@@ -947,39 +949,7 @@ EPUBJS.reader.ReaderController = function(book) {
 				"arrowKeys" : arrowKeys
 		};
 };
-EPUBJS.reader.SettingsController = function() {
-		var book = this.book;
-		var reader = this;
-		var $settings = $("#settings-modal"),
-						$overlay = $(".overlay");
 
-		var show = function() {
-				$settings.addClass("md-show");
-		};
-
-		var hide = function() {
-				$settings.removeClass("md-show");
-		};
-
-		var $sidebarReflowSetting = $('#sidebarReflow');
-
-		$sidebarReflowSetting.on('click', function() {
-				reader.settings.sidebarReflow = !reader.settings.sidebarReflow;
-		});
-
-		$settings.find(".closer").on("click", function() {
-				hide();
-		});
-
-		$overlay.on("click", function() {
-				hide();
-		});
-
-		return {
-				"show" : show,
-				"hide" : hide
-		};
-};
 EPUBJS.reader.SidebarController = function(book) {
 		var reader = this;
 
