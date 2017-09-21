@@ -16,7 +16,6 @@ document.onreadystatechange = function () {
 				percentStatus = '100';
 			progressStatus.style.width = `${percentStatus}%`;
 			progressValue.textContent = `${percentStatus}%`;
-			console.log(location);
 		});
 	}
 };
