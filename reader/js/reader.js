@@ -37,7 +37,7 @@ EPUBJS.Reader = function(bookPath, _options) {
 				bookKey : undefined,
 				styles : undefined,
 				sidebarReflow: false,
-				generatePagination: true,
+				generatePagination: false,
 				history: true
 		});
 
@@ -118,7 +118,7 @@ EPUBJS.Reader = function(bookPath, _options) {
 		book.on("renderer:keydown", this.adjustFontSize.bind(this));
 		book.on("renderer:keydown", reader.ReaderController.arrowKeys.bind(this));
 
-		book.on("renderer:selected", this.selectedRange.bind(this));
+		// book.on("renderer:selected", this.selectedRange.bind(this));
 
 		return this;
 };
