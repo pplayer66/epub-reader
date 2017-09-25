@@ -4,6 +4,6 @@ const {dbport: port} = require('../config/db');
 
 mongoose.promise = global.Promise;
 
-mongoose.connect(port, ()=>console.log('Connected to database'));
+mongoose.connect(port, {useMongoClient: true});
 
 module.exports = mongoose;

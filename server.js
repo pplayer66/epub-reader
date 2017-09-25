@@ -1,4 +1,6 @@
 const express = require('express');
+const ua_parser = require('ua-parser-js');
+const mongoose = require('./db/mongoose');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -11,7 +13,14 @@ app.get('/', (req, res)=>{
 	res.redirect('/reader');
 });
 
+app.get('/dropdb', (req, res)=>{
+	mongoose.connection.db.dropDatabase(()=>{
+		res.send('database has been dropped');
+	});
+});
+
 app.get('/reader', (req, res)=>{
+	var ua = ua_parser(req.headers['user-agent']);
 	res.render('index', {bookmarks: ['epubcfi(/6/12[id251]!/4/2[calibre_toc_4]/1:0)', 'epubcfi(/6/14[id250]!/4/38/1:0)', 'epubcfi(/6/22[id246]!/4/110/1:0)']});
 });
 

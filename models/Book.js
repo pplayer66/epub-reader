@@ -1,17 +1,26 @@
 const mongoose = require('../db/mongoose');
 
 const bookSchema = mongoose.Schema({
-	title:
-	{
-		type: String,
-	},
+	title:String,
 	total: Number,
-	pages: [
+	Chrome: [
 		{
 			cfi: String,
 			progress: Number
 		}
-	]
+	],
+	Firefox: [
+		{
+			cfi: String,
+			progress: Number
+		}
+	],
+	Safari: [
+		{
+			cfi: String,
+			progress: Number
+		}
+	],
 });
 
 const Book = mongoose.model('Book', bookSchema);
