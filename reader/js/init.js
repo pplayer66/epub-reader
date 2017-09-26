@@ -15,6 +15,7 @@ document.onreadystatechange = function () {
 				book.nextPage();
 			}, t)
 		}
+
 		var sendDataCfi = function(cfirange)
 		{
 			var text = '';
@@ -31,27 +32,68 @@ document.onreadystatechange = function () {
 			textLength = (text.trim()).length;
 			currentTotal = currentTotal + textLength;
 			var currentLocation = book.getCurrentLocationCfi();
+			var size = getDocumentWidth();
 			$.ajax({
-				url: `/book/addpage?title=${title}&cfi=${currentLocation}&progress=${currentTotal}`,
+				url: `/book/addpage?title=${title}&cfi=${currentLocation}&progress=${currentTotal}&size=${size}`,
 				type: 'GET',
 				success: function(data){
 					console.log('returned data', data);
-					triggerNextPage(1500);
+					triggerNextPage(700);
 				},
 				error: function(err){console.log(err)}
 			});
 		};
 
+		// book.on('renderer:visibleRangeChanged', sendDataCfi); //starting pushing cfis to server
+
+		var getDocumentWidth = function(){
+			var width = $(document).width();
+			var currentWidth;
+			if (width > 1300)
+				currentWidth='lg';
+			else if (width > 700)
+				currentWidth='md';
+			else if (width > 480)
+				currentWidth='sm';
+			else if (width < 480 )
+				currentWidth='xs';
+			return currentWidth;
+		};
+
+		var currentSize = getDocumentWidth();
+
+		var addWindowResizeListener = function(){
+			$(window).resize(function(e){
+				var windowSize = getDocumentWidth();
+				if (windowSize===currentSize)
+					return;
+				$(window).off('resize');
+				currentSize = windowSize;
+				console.log(currentSize);
+				fetchDataCfi();
+				setTimeout(function(){
+					addWindowResizeListener();
+				}, 1500);
+			});
+		};
+
+		// addWindowResizeListener();
+		
+
 		var fetchDataCfi = function()
 		{
+			var size = getDocumentWidth();
+
 			$.ajax(
 			{
-				url: `/book/pages`,
+				url: `/book/pages?title=${title}&size=${size}`,
 				type: 'GET',
 				success: function(data){
+					console.log(data);
 					var total = data[data.length-1].progress;
 					console.log(total);
 					book.pages = _.keyBy(data, 'cfi');
+					book.nextPage();
 					book.on("renderer:visibleRangeChanged", function(cfirange){
 						var currentLocation = book.getCurrentLocationCfi();
 						var currentProgress = book.pages[currentLocation].progress;
@@ -64,11 +106,14 @@ document.onreadystatechange = function () {
 				error: function(err){console.log(err)}
 			})
 		};
+
+		// fetchDataCfi();
+
 		var addBook = function()
 		{
 			$.ajax(
 				{
-					url: `/book/addbook?title=${title}&total=${total}`,
+					url: `/book/addbook?title=${title}`,
 					type: 'GET',
 					success: function(data){
 						console.log('saved book', data)
@@ -78,5 +123,6 @@ document.onreadystatechange = function () {
 					}
 				})
 		};
+		// addBook();
 	}
 };

@@ -7,7 +7,7 @@ const router = express.Router();
 
 
 router.get('/addbook', (req, res)=>{
-	const book = new Book({title: req.query.title, total: req.query.total});
+	const book = new Book({title: req.query.title});
 	book.save(
 		(err, book)=>{
 			if (err)
@@ -26,16 +26,21 @@ router.get('/all', (req, res)=>{
 })
 
 router.get('/pages', (req, res)=>{
+	const {title, size} = req.query;
 	const {browser:{name}} = ua_parser(req.headers['user-agent']);
-	Book.find({}, (err, result)=>{
-		res.send(result[0][name]);
+	Book.findOne({title}, (err, result)=>{
+		const pages = result[name].filter((item)=>{
+			if (item.size === size)
+				return item;
+		});
+		res.send(pages);
 	});
 })
 
 router.get('/addpage', (req, res)=>{
-	const {cfi, progress} = req.query;
+	const {title, cfi, progress, size} = req.query;
 	const {browser:{name}} = ua_parser(req.headers['user-agent']);
-	Book.update({title: req.query.title}, {$push:{[name]: {cfi, progress}}}, (err, result)=>{
+	Book.update({title: req.query.title}, {$push:{[name]:{cfi, progress, size}}}, (err, result)=>{
 		if (err)
 			res.send(err);
 		res.send(result);
