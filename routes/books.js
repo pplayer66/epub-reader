@@ -74,13 +74,9 @@ router.get('/remove', (req, res)=>{ //rm by cfi _id
 });
 
 router.get('/rm', (req, res)=>{
-	Book.find({}, (err, docs)=>{
-		docs[0].update($set:{Safari: []}, (err, docs)=>{
-			if (err)
-				res.send(err);
-			res.send(docs);
-		});
-	})
+	Book.update({_id: '59cb5c4767afe20012535739'}, {$set: {Safari:[]}}, (err, docs)=>{
+		res.send(docs);
+	});
 });
 
 module.exports = router;
