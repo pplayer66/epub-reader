@@ -66,7 +66,7 @@ router.get('/drop', (req, res)=>{
 
 router.get('/rmcfi', (req, res)=>{ //rm by cfi _id
 	const {id, browser, idcfi} = req.query;
-	Book.update({_id: id}, {$pull:{[browser]:{_id: idcfi}}}, {safe: true, multi: true}, (err, doc)=>{
+	Book.update({_id: id}, {$pullAll:{[browser]:{size: "md"}}}, {safe: true, multi: true}, (err, doc)=>{
 		if (err)
 			console.log(err);
 		console.log(doc);
@@ -75,7 +75,7 @@ router.get('/rmcfi', (req, res)=>{ //rm by cfi _id
 
 router.get('/:bookId/:browsername', (req, res)=>{ //rm all docs from cert browser
 	const {browser, bookId} = req.params;
-	Book.update({_id: bookId}, {$pull:{[browser]: {size: 'md'}}}, (err, docs)=>{
+	Book.update({_id: bookId}, {$pullAll:{Safari: {size: 'md'}}}, (err, docs)=>{
 		if (err)
 			res.send(err);
 		res.send(docs);

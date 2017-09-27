@@ -791,7 +791,7 @@ input:-ms-placeholder {
       height: 2px;
     }
     #progress-status{
-      display: none;
+      /*display: none;*/
     }
 }
 /* For iPhone landscape layouts only */
