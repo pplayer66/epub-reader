@@ -93,7 +93,8 @@ document.onreadystatechange = function () {
 					console.log(total);
 					book.pages = _.keyBy(data, 'cfi');
 					book.on("renderer:visibleRangeChanged", function(cfirange){
-						if (!(book.pages[getLocation()]));
+						var curloc = book.getCurrentLocationCfi();
+						if (!book.pages[curloc]);
 							console.log(book.pages);
 							return console.log('false');
 						var currentLocation = getLocation();
