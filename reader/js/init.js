@@ -66,7 +66,6 @@ document.onreadystatechange = function () {
 
 		var addWindowResizeListener = function(){
 			$(window).resize(function(e){
-				book.removeEventListener('renderer:visibleRangeChanged');
 				var windowSize = getDocumentWidth();
 				if (windowSize===currentSize)
 					return;
@@ -94,6 +93,8 @@ document.onreadystatechange = function () {
 					console.log(total);
 					book.pages = _.keyBy(data, 'cfi');
 					book.on("renderer:visibleRangeChanged", function(cfirange){
+						if (book.pages[getLocation()]);
+							return;
 						var currentLocation = getLocation();
 						var currentProgress = book.pages[currentLocation].progress;
 						var percentage = (currentProgress * 100) / total;
