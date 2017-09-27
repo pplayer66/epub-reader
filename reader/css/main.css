@@ -788,8 +788,8 @@ input:-ms-placeholder {
     #progress-range{
       position: relative;
       background: transparent;
-      height: 5px;
-      border: 0;
+      height: 4px;
+      border: 1px solid #89c9e2;
     }
 }
 /* For iPhone landscape layouts only */
