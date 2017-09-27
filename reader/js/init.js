@@ -88,7 +88,10 @@ document.onreadystatechange = function () {
 					var total = data[data.length-1].progress;
 					console.log(total);
 					book.pages = _.keyBy(data, 'cfi');
-					book.nextPage();
+					var currentLoc = book.getCurrentLocationCfi();
+					if (!book.pages[currentLoc])
+						return book.nextPage();
+
 					book.on("renderer:visibleRangeChanged", function(cfirange){
 						var currentLocation = book.getCurrentLocationCfi();
 						var currentProgress = book.pages[currentLocation].progress;
