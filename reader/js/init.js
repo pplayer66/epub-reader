@@ -66,7 +66,7 @@ document.onreadystatechange = function () {
 
 		var addWindowResizeListener = function(){
 			$(window).resize(function(e){
-				book.removeEventHandler('renderer:visibleRangeChanged');
+				book.removeEventListener('renderer:visibleRangeChanged');
 				var windowSize = getDocumentWidth();
 				if (windowSize===currentSize)
 					return;
