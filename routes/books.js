@@ -26,8 +26,8 @@ router.get('/all', (req, res)=>{
 })
 
 router.get('/device', (req, res)=>{
-	var parser = new ua_parser();
-	res.send(parser.getResult());
+	var ua = parser(req.headers['user-agent']);
+	res.send(ua.browser.name);
 });
 
 router.get('/pages', (req, res)=>{
