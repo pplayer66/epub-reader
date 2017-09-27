@@ -73,13 +73,10 @@ router.get('/remove', (req, res)=>{ //rm by cfi _id
 	});
 });
 
-router.get('/:bookId/:browsername', (req, res)=>{ //rm all docs from cert browser
-	const {browser, bookId} = req.params;
-	Book.update({_id: bookId}, {$pullAll:{Safari: {size: 'md'}}}, (err, docs)=>{
-		if (err)
-			res.send(err);
-		res.send(docs);
-	});
+router.get('/rm', (req, res)=>{
+	Book.find({}, (err, docs)=>{
+		docs[0].update($set:{Safari: []});
+	})
 });
 
 module.exports = router;
