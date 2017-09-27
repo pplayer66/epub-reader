@@ -96,7 +96,8 @@ document.onreadystatechange = function () {
 						var currentLocation = getLocation();
 						if (!book.pages[currentLocation]){
 							console.log('false');
-							return book.nextPage();
+							book.off('renderer:visibleRangeChanged');
+							return;
 						}
 						var currentProgress = book.pages[currentLocation].progress;
 						var percentage = (currentProgress * 100) / total;
