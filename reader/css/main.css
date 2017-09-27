@@ -774,7 +774,9 @@ input:-ms-placeholder {
        height: 410px;
     }
     #progress{
-      bottom: 10px;
+      position: fixed;
+      bottom: 5px;
+      z-index: 10000;
     }
 }
 /* For iPhone landscape layouts only */
