@@ -774,10 +774,11 @@ input:-ms-placeholder {
        height: 410px;
     }
     #progress{
-      position: fixed;
+      margin:0;
       left: 0;
-      width: 100%;
       bottom: 0;
+      height: 2px;
+      width: 100%;
       z-index: 10000;
     }
     #progress-title{
@@ -786,7 +787,8 @@ input:-ms-placeholder {
     #progress-range{
       position: relative;
       background: transparent;
-      height: 3px;
+      border: none;
+      height: 2px;
     }
     #progress-status{
       display: none;
