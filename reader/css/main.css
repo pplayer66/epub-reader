@@ -780,6 +780,8 @@ input:-ms-placeholder {
       display: none;
     }
     #progress {
+      margin: 0;
+      left: 0;
       position: absolute;
       bottom: 10px;
       width: 100%;
