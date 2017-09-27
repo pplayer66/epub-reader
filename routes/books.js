@@ -26,7 +26,7 @@ router.get('/all', (req, res)=>{
 })
 
 router.get('/device', (req, res)=>{
-	var parser = new UAParser();
+	var parser = new ua_parser();
 	res.send(parser.getResult());
 });
 
