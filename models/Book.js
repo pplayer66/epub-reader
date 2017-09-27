@@ -22,6 +22,13 @@ const bookSchema = mongoose.Schema({
 			progress: Number,
 			size: String
 		}
+	],
+	MobileSafari:[
+		{
+			cfi: String,
+			progress: Number,
+			size: String
+		}
 	]
 });
 
