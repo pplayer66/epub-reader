@@ -55,4 +55,13 @@ router.get('/drop', (req, res)=>{
 	})
 });
 
+router.get('/rmcfi', (req, res)=>{
+	const {id, browser, idcfi} = req.query;
+	Book.update({_id: id}, {$pull:{[browser]:{_id: idcfi}}}, {safe: true, multi: true}, (err, doc)=>{
+		if (err)
+			console.log(err);
+		console.log(doc);
+	});
+});
+
 module.exports = router;

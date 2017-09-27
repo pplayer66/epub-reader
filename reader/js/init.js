@@ -38,13 +38,11 @@ document.onreadystatechange = function () {
 				type: 'GET',
 				success: function(data){
 					console.log('returned data', data);
-					triggerNextPage(700);
+					triggerNextPage(1200);
 				},
 				error: function(err){console.log(err)}
 			});
 		};
-
-		// book.on('renderer:visibleRangeChanged', sendDataCfi); //starting pushing cfis to server
 
 		var getDocumentWidth = function(){
 			var width = $(document).width();
@@ -77,9 +75,6 @@ document.onreadystatechange = function () {
 			});
 		};
 
-		// addWindowResizeListener();
-		
-
 		var fetchDataCfi = function()
 		{
 			var size = getDocumentWidth();
@@ -107,8 +102,6 @@ document.onreadystatechange = function () {
 			})
 		};
 
-		// fetchDataCfi();
-
 		var addBook = function()
 		{
 			$.ajax(
@@ -123,6 +116,10 @@ document.onreadystatechange = function () {
 					}
 				})
 		};
-		// addBook();
+
+		// book.on('renderer:visibleRangeChanged', sendDataCfi);
+		// addWindowResizeListener();
+		// fetchDataCfi();
+		addBook();
 	}
 };
