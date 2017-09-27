@@ -75,7 +75,7 @@ router.get('/rmcfi', (req, res)=>{ //rm by cfi _id
 
 router.get('/:bookId/:browsername', (req, res)=>{ //rm all docs from cert browser
 	const {browser, bookId} = req.params;
-	Book.update({_id: bookId}, {$pullAll:{[browser]: {}}}, {safe:true, multi: true}, (err, docs)=>{
+	Book.update({_id: bookId}, {$pullAll:{[browser]: {size: 'md'}}}, {safe:true, multi: true}, (err, docs)=>{
 		if (err)
 			res.send(err);
 		res.send(docs);
