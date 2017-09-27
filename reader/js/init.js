@@ -93,8 +93,8 @@ document.onreadystatechange = function () {
 					console.log(total);
 					book.pages = _.keyBy(data, 'cfi');
 					book.on("renderer:visibleRangeChanged", function(cfirange){
-						if (book.pages[getLocation()]);
-							return book.nextPage();
+						if (!book.pages[getLocation()]);
+							return;
 						var currentLocation = getLocation();
 						var currentProgress = book.pages[currentLocation].progress;
 						var percentage = (currentProgress * 100) / total;
