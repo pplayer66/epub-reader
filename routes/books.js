@@ -64,9 +64,9 @@ router.get('/drop', (req, res)=>{
 	})
 });
 
-router.get('/rmcfi', (req, res)=>{ //rm by cfi _id
+router.get('/remove', (req, res)=>{ //rm by cfi _id
 	const {id, browser, idcfi} = req.query;
-	Book.update({_id: id}, {$pullAll:{[browser]:[{size: "md"}, {size:"lg"}]}}, {safe: true, multi: true}, (err, doc)=>{
+	Book.update({_id: id}, {$pullAll:{[browser]:[{}]}}, {safe: true, multi: true}, (err, doc)=>{
 		if (err)
 			console.log(err);
 		console.log(doc);
