@@ -33,6 +33,8 @@ router.get('/device', (req, res)=>{
 router.get('/pages', (req, res)=>{
 	const {title, size} = req.query;
 	const {browser:{name}} = ua_parser(req.headers['user-agent']);
+	if (name === 'Mobile Safari')
+		name = 'MobileSafari';
 	Book.findOne({title}, (err, result)=>{
 		const pages = result[name].filter((item)=>{
 			if (item.size === size)
@@ -45,6 +47,8 @@ router.get('/pages', (req, res)=>{
 router.get('/addpage', (req, res)=>{
 	const {title, cfi, progress, size} = req.query;
 	const {browser:{name}} = ua_parser(req.headers['user-agent']);
+	if (name === 'Mobile Safari')
+		name = 'MobileSafari';
 	Book.update({title: req.query.title}, {$push:{[name]:{cfi, progress, size}}}, (err, result)=>{
 		if (err)
 			res.send(err);
