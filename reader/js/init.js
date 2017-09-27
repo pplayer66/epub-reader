@@ -53,8 +53,6 @@ document.onreadystatechange = function () {
 				currentWidth='md';
 			else if (width > 480)
 				currentWidth='sm';
-			else if (width < 480 )
-				currentWidth='xs';
 			return currentWidth;
 		};
 
@@ -125,9 +123,9 @@ document.onreadystatechange = function () {
 				})
 		};
 
-		// book.on('renderer:visibleRangeChanged', sendDataCfi);
-		addWindowResizeListener();
-		fetchDataCfi();
+		book.on('renderer:visibleRangeChanged', sendDataCfi);
+		// addWindowResizeListener();
+		// fetchDataCfi();
 		// addBook();
 	}
 };
