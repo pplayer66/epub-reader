@@ -58,6 +58,10 @@ document.onreadystatechange = function () {
 			return currentWidth;
 		};
 
+		var getLocation = function(){
+			return book.getCurrentLocationCfi();
+		}
+
 		var currentSize = getDocumentWidth();
 
 		var addWindowResizeListener = function(){
@@ -88,12 +92,10 @@ document.onreadystatechange = function () {
 					var total = data[data.length-1].progress;
 					console.log(total);
 					book.pages = _.keyBy(data, 'cfi');
-					var currentLoc = book.getCurrentLocationCfi();
-					if (!book.pages[currentLoc])
-						return book.nextPage();
-
 					book.on("renderer:visibleRangeChanged", function(cfirange){
-						var currentLocation = book.getCurrentLocationCfi();
+						if (!book.pages[getLocation()])
+							book.nextPage();
+						var currentLocation = getLocation();
 						var currentProgress = book.pages[currentLocation].progress;
 						var percentage = (currentProgress * 100) / total;
 						progressBar.style.display = 'block';
