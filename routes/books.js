@@ -75,7 +75,11 @@ router.get('/remove', (req, res)=>{ //rm by cfi _id
 
 router.get('/rm', (req, res)=>{
 	Book.find({}, (err, docs)=>{
-		docs[0].update($set:{Safari: []});
+		docs[0].update($set:{Safari: []}, (err, docs)=>{
+			if (err)
+				res.send(err);
+			res.send(docs);
+		});
 	})
 });
 
