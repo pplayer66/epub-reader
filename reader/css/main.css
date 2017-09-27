@@ -783,7 +783,7 @@ input:-ms-placeholder {
       margin: 0;
       left: 0;
       position: absolute;
-      bottom: 10px;
+      bottom: 0;
       width: 100%;
       display: none;
     }
