@@ -49,9 +49,11 @@ router.get('/addpage', (req, res)=>{
 	const {browser:{name}} = ua_parser(req.headers['user-agent']);
 	if (name === 'Mobile Safari')
 		name = 'MobileSafari';
+	console.log(name);
 	Book.update({title: req.query.title}, {$push:{[name]:{cfi, progress, size}}}, (err, result)=>{
 		if (err)
 			res.send(err);
+		console.log(result);
 		res.send(result);
 	});
 });
