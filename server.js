@@ -20,7 +20,10 @@ app.get('/dropdb', (req, res)=>{
 });
 
 app.get('/reader', (req, res)=>{
+	var parser = new ua_parser;
+	parser.getResult();
 	var ua = ua_parser(req.headers['user-agent']);
+
 	res.render('index', {bookmarks: ['epubcfi(/6/12[id251]!/4/2[calibre_toc_4]/1:0)', 'epubcfi(/6/14[id250]!/4/38/1:0)', 'epubcfi(/6/22[id246]!/4/110/1:0)']});
 });
 
