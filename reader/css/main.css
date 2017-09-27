@@ -773,25 +773,23 @@ input:-ms-placeholder {
        width: 260px;
        height: 410px;
     }
-    #progress{
-      margin:0;
-      left: 0;
-      bottom: 0;
-      height: 2px;
-      width: 100%;
-      z-index: 10000;
+    #progress-value{
+      display: none;
     }
     #progress-title{
+      display: none;
+    }
+    #progress {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
       display: none;
     }
     #progress-range{
       position: relative;
       background: transparent;
-      border: none;
-      height: 2px;
-    }
-    #progress-status{
-      /*display: none;*/
+      height: 5px;
+      border: 0;
     }
 }
 /* For iPhone landscape layouts only */
