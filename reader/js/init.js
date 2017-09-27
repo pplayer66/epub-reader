@@ -94,9 +94,10 @@ document.onreadystatechange = function () {
 					book.pages = _.keyBy(data, 'cfi');
 					book.on("renderer:visibleRangeChanged", function(cfirange){
 						var curloc = book.getCurrentLocationCfi();
-						if (!book.pages[curloc]);
+						if (!book.pages[curloc]);{
 							console.log(book.pages[curloc]);
 							return console.log('false');
+						}
 						var currentLocation = getLocation();
 						var currentProgress = book.pages[currentLocation].progress;
 						var percentage = (currentProgress * 100) / total;
