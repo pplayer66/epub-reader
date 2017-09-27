@@ -53,6 +53,8 @@ document.onreadystatechange = function () {
 				currentWidth='md';
 			else if (width > 480)
 				currentWidth='sm';
+			else if(width < 480)
+				currentWidth='xs';
 			return currentWidth;
 		};
 
