@@ -553,13 +553,21 @@ input:-ms-placeholder {
   top: 0;
   left: 0;
   z-index: 1000;
-  background: red;
+  background: #fffaec;
   -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;
   -ms-transition: all 0.3s;
   transition: all 0.3s;
 }
-
+.overlay > img{
+  display: block;
+  position: relative;
+  /*width: 30px;*/
+  /*height: 30px;*/
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
 .md-show {
     visibility: visible;
 }

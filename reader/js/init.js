@@ -12,6 +12,9 @@ document.onreadystatechange = function () {
 
 		book.on('renderer:chapterDisplayed', function() {
 			$('.overlay').show();
+			setTimeout(function(){
+				$('.overlay').hide();
+			}, 300);
 			EPUBJS.core.addCss('/css/styles.css', null, book.renderer.doc.head);
 		});
 
