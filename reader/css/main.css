@@ -148,7 +148,6 @@ ul{
   /*border: 1px solid #89c9e2;*/
 }
 #progress-value{
-    display: none;
     color: #424242;
     font-size: 14px;
     position: absolute;
