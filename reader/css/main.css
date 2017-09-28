@@ -133,10 +133,10 @@ ul{
 
 #progress {
   position: absolute;
+  left: 0;
+  width: 100%;
   bottom: 30px;
-  left: 50%;
-  width: 200px;
-  margin-left: -100px;
+  width: 100%;
   text-align: center;
   display: none;
 }
@@ -147,10 +147,11 @@ ul{
 #progress-range{
   position: relative;
   background: transparent;
-  height: 15px;
-  border: 1px solid #89c9e2;
+  height: 3px;
+  /*border: 1px solid #89c9e2;*/
 }
 #progress-value{
+    display: none;
     color: #222;
     font-size: 14px;
     position: absolute;
@@ -164,9 +165,9 @@ ul{
   top: 0;
   height: 100%;
   width: 0;
-  background: #77bee0;
+  background: #424242;
   z-index: 5 !important;
-  transition: width .4s ease;
+  transition: width .6s ease;
 }
 
 .arrow {
