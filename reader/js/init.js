@@ -11,7 +11,8 @@ document.onreadystatechange = function () {
 		var currentTotal = 0;
 
 		book.on('renderer:chapterDisplayed', function() {
-		  EPUBJS.core.addCss('/css/styles.css', null, book.renderer.doc.head);
+			$('.overlay').show();
+			EPUBJS.core.addCss('/css/styles.css', null, book.renderer.doc.head);
 		});
 
 		var triggerNextPage = function(t)

@@ -151,6 +151,7 @@ ul{
     color: #424242;
     font-size: 14px;
     position: absolute;
+    bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10 !important;
