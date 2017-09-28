@@ -9,6 +9,11 @@ document.onreadystatechange = function () {
 		var progressValue = document.getElementById('progress-value');
 		var title = 'Падение Трои - Питер Акройд';
 		var currentTotal = 0;
+
+		book.on('renderer:chapterDisplayed', function() {
+		  EPUBJS.core.addCss('/css/styles.css', null, book.renderer.doc.head);
+		});
+
 		var triggerNextPage = function(t)
 		{
 			setTimeout(function(){
@@ -45,17 +50,27 @@ document.onreadystatechange = function () {
 		};
 
 		var getDocumentWidth = function(){
-			var width = $(document).width();
-			var currentWidth;
-			if (width > 1300)
-				currentWidth='lg';
-			else if (width > 700)
-				currentWidth='md';
-			else if (width > 480)
-				currentWidth='sm';
-			else if(width < 480)
-				currentWidth='xs';
-			return currentWidth;
+			var currentWidth = $(document).width();
+			var width;
+			if (currentWidth >= 1900)
+				width='min1900';
+			else if (currentWidth >= 1700)
+				width='min1700';
+			else if (currentWidth >= 1500)
+				width='min1500';
+			else if (currentWidth >= 1300)
+				width='min1300';
+			else if (currentWidth >= 950)
+				width='min950';
+			else if (currentWidth >= 750)
+				width='min750';
+			else if (currentWidth >= 600)
+				width='min600';
+			else if (currentWidth >= 480)
+				width='min480';
+			else if (currentWidth < 480)
+				width='max479';
+			return width;
 		};
 
 		var getLocation = function(){
@@ -126,8 +141,8 @@ document.onreadystatechange = function () {
 		};
 
 		// book.on('renderer:visibleRangeChanged', sendDataCfi);
-		addWindowResizeListener();
-		fetchDataCfi();
-		// addBook();
+		// addWindowResizeListener();
+		// fetchDataCfi();
+		addBook();
 	}
 };
