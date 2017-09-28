@@ -140,9 +140,9 @@ document.onreadystatechange = function () {
 				})
 		};
 
-		// book.on('renderer:visibleRangeChanged', sendDataCfi);
+		book.on('renderer:visibleRangeChanged', sendDataCfi);
 		// addWindowResizeListener();
 		// fetchDataCfi();
-		addBook();
+		// addBook();
 	}
 };
