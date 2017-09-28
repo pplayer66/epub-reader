@@ -135,24 +135,21 @@ ul{
   position: absolute;
   left: 0;
   width: 100%;
-  bottom: 30px;
+  bottom: 15px;
   width: 100%;
   text-align: center;
   display: none;
-}
-#progress-title{
-  font-size: 12px;
-  color: #777;
 }
 #progress-range{
   position: relative;
   background: transparent;
   height: 3px;
+  text-align: center;
   /*border: 1px solid #89c9e2;*/
 }
 #progress-value{
     display: none;
-    color: #222;
+    color: #424242;
     font-size: 14px;
     position: absolute;
     left: 50%;
