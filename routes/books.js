@@ -68,14 +68,14 @@ router.get('/drop', (req, res)=>{
 
 router.get('/remove', (req, res)=>{ //rm by cfi _id
 	const {id, browser, idcfi} = req.query;
-	Book.update({_id: id}, {$pullAll:{[browser]:[{}]}}, {safe: true, multi: true}, (err, doc)=>{
+	Book.update({_id: id}, {$pull:{[browser]: {_id: idcfi}}, {safe: true, multi: true}, (err, doc)=>{
 		if (err)
-			console.log(err);
-		console.log(doc);
+			res.send(err);
+		res.send(doc);
 	});
 });
 
-router.get('/rm', (req, res)=>{
+router.get('/clearbrowser', (req, res)=>{
 	Book.update({_id: '59cb5c4767afe20012535739'}, {$set: {Safari:[]}}, (err, docs)=>{
 		res.send(docs);
 	});
