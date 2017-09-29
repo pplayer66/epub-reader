@@ -110,7 +110,6 @@ document.onreadystatechange = function () {
 				url: `/book/pages?title=${title}&size=${size}`,
 				type: 'GET',
 				success: function(data){
-					console.log(data);
 					var total = data[data.length-1].progress;
 					console.log(total);
 					book.pages = _.keyBy(data, 'cfi');
