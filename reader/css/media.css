@@ -96,7 +96,7 @@
 		margin-right: auto;
 	}
 }
-@media only screen and (max-width: 480px) {
+@media only screen and (min-width: 300px) and (max-width: 479px) {
 	#viewer{
 		font-size: 14px
 		width: 260px;
@@ -150,7 +150,4 @@
 	font-size: 12px;
 	}
 
-	#tocView > ul{
-	padding-left: 10px;
-	}
 }
