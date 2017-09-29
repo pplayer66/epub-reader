@@ -7,7 +7,7 @@ const bookSchema = mongoose.Schema({
 			cfi: String,
 			progress: Number,
 			size: String,
-			type: String
+			devtype: String
 		}
 	],
 	Firefox:[
@@ -15,7 +15,7 @@ const bookSchema = mongoose.Schema({
 			cfi: String,
 			progress: Number,
 			size: String,
-			type: String
+			devtype: String
 		}
 	],
 	Safari:[
@@ -23,7 +23,7 @@ const bookSchema = mongoose.Schema({
 			cfi: String,
 			progress: Number,
 			size: String,
-			type: String
+			devtype: String
 		}
 	],
 	MobileSafari:[
@@ -31,7 +31,7 @@ const bookSchema = mongoose.Schema({
 			cfi: String,
 			progress: Number,
 			size: String,
-			type: String
+			devtype: String
 		}
 	]
 });

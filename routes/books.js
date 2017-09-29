@@ -42,16 +42,13 @@ router.get('/pages', (req, res)=>{
 router.get('/addpage', (req, res)=>{
 	const {title, cfi, progress, size} = req.query;
 	var {browser:{name}, device:{type}} = ua_parser(req.headers['user-agent']);
-	type = !type ? 'desktop' : 'mobile';
+	const devtype = !type ? 'desktop' : 'mobile';
 	if (name === 'Mobile Safari')
 		name = 'MobileSafari';
 	console.log('name', name);
 	console.log('type', type);
 	Book.update({title: req.query.title}, {$push:{[name]:{cfi, progress, size, type}}}, (err, result)=>{
-		if (err)
-			res.send(err);
-		console.log(result);
-		// res.send(result);
+		if (err) res.send(err);
 	});
 });
 
