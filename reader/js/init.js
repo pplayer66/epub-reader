@@ -10,6 +10,11 @@ document.onreadystatechange = function () {
 		var title = 'Падение Трои - Питер Акройд';
 		var currentTotal = 0;
 
+
+		$(window).resize(function(){
+			console.log($(window).width());
+		});
+
 		book.on('renderer:chapterDisplayed', function() {
 			$('.overlay').show();
 			setTimeout(function(){
