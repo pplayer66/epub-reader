@@ -1,3 +1,11 @@
+@media only screen and (min-width: 400px) {
+	#viewer{
+		width: 260px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+
 @media only screen and (min-width: 480px) {
 	#viewer{
 		width: 400px;
@@ -56,10 +64,6 @@
 		margin-left: auto;
 		margin-right: auto;
 	}
-	#divider,
-	#divider.show {
-	display: none;
-	}
 }
 @media only screen and (min-width: 1900px) {
 	#viewer{
@@ -96,7 +100,7 @@
 		margin-right: auto;
 	}
 }
-@media only screen and (min-width: 300px) and (max-width: 479px) {
+/*@media only screen and (min-width: 300px) and (max-width: 479px) {
 	#viewer{
 		font-size: 14px
 		width: 260px;
@@ -150,4 +154,4 @@
 	font-size: 12px;
 	}
 
-}
+}*/
