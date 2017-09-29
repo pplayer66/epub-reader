@@ -30,8 +30,9 @@ app.get('/reader', (req, res)=>{
 app.use('/book', book);
 
 app.get('/device', (req, res)=>{
-	var ua = ua_parser(req.headers['user-agent']);
-	res.send(ua.device);
+	const {device:{type}} = ua_parser(req.headers['user-agent']);
+	res.send(type);
+
 });
 
 app.get('/browser', (req, res)=>{

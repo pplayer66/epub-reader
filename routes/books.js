@@ -40,8 +40,8 @@ router.get('/pages', (req, res)=>{
 })
 
 router.get('/addpage', (req, res)=>{
-	const {title, cfi, progress, size} = req.query;
-	var {browser:{name}} = ua_parser(req.headers['user-agent']);
+	const {title, cfi, progress, size, type} = req.query;
+	var {browser:{name}, device:{type}} = ua_parser(req.headers['user-agent']);
 	if (name === 'Mobile Safari')
 		name = 'MobileSafari';
 	console.log(name);
