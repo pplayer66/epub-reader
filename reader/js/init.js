@@ -28,7 +28,7 @@ document.onreadystatechange = function () {
 			setTimeout(function(){
 				book.nextPage();
 			}, t)
-		}
+		};
 
 		var sendDataCfi = function(cfirange)
 		{
@@ -148,9 +148,9 @@ document.onreadystatechange = function () {
 				})
 		};
 
-		book.on('renderer:visibleRangeChanged', sendDataCfi);
-		// addWindowResizeListener();
-		// fetchDataCfi();
+		// book.on('renderer:visibleRangeChanged', sendDataCfi);
+		addWindowResizeListener();
+		fetchDataCfi();
 		// addBook();
 	}
 };
