@@ -45,7 +45,8 @@ router.get('/addpage', (req, res)=>{
 	type = !type ? 'desktop' : 'mobile';
 	if (name === 'Mobile Safari')
 		name = 'MobileSafari';
-	console.log(name);
+	console.log('name', name);
+	console.log('type', type);
 	Book.update({title: req.query.title}, {$push:{[name]:{cfi, progress, size, type}}}, (err, result)=>{
 		if (err)
 			res.send(err);
