@@ -94,31 +94,28 @@ document.onreadystatechange = function () {
 				if (windowSize===currentSize)
 					return;
 				currentSize = windowSize;
-				fetchDataCfi();
-				setTimeout(function(){
-					addWindowResizeListener();
-				}, 1500);
+				setRelevantCfis()
 			});
 		};
 
 		var fetchDataCfi = function()
 		{
-			var size = getDocumentWidth();
-
 			$.ajax(
 			{
-				url: `/book/pages?title=${title}&size=${size}`,
+				url: `/book/pages?title=${title}`,
 				type: 'GET',
 				success: function(data){
-					var total = data[data.length-1].progress;
-					console.log(total);
+					// var total = data[data.length-1].progress;
+					var size = getDocumentWidth;
+					book.total = data;
+					data = _.filter(data, {size});
 					book.pages = _.keyBy(data, 'cfi');
 					book.on("renderer:visibleRangeChanged", function(cfirange){
-						var curloc = book.getCurrentLocationCfi();
-						if (!book.pages[curloc]){
+						var currentLocation = book.getCurrentLocationCfi();
+						if (!book.pages[currentLocation]){
+							console.log('false cfi');
 							return;
 						}
-						var currentLocation = getLocation();
 						var currentProgress = book.pages[currentLocation].progress;
 						var percentage = (currentProgress * 100) / total;
 						progressBar.style.display = 'block';
@@ -129,6 +126,11 @@ document.onreadystatechange = function () {
 				error: function(err){console.log(err)}
 			})
 		};
+
+
+		var setRelevantCfis = function(){
+			book.pages = _keyBy(_.filter(book.total, {size: currentSize}), 'cfi');
+		}
 
 		var addBook = function()
 		{
@@ -146,8 +148,8 @@ document.onreadystatechange = function () {
 		};
 
 		// book.on('renderer:visibleRangeChanged', sendDataCfi);
-		// addWindowResizeListener();
-		// fetchDataCfi();
+		addWindowResizeListener();
+		fetchDataCfi();
 		// addBook();
 	}
 };

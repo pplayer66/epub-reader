@@ -26,13 +26,14 @@ router.get('/all', (req, res)=>{
 })
 
 router.get('/pages', (req, res)=>{
-	const {title, size} = req.query;
-	var {browser:{name}} = ua_parser(req.headers['user-agent']);
+	const {title} = req.query;
+	var {browser:{name}, device:{type}} = ua_parser(req.headers['user-agent']);
+	const devtype = !type ? 'desktop' : 'mobile';
 	if (name === 'Mobile Safari')
 		name = 'MobileSafari';
 	Book.findOne({title}, (err, result)=>{
 		const pages = result[name].filter((item)=>{
-			if (item.size === size)
+			if (item.devtype === devtype)
 				return item;
 		});
 		res.send(pages);
