@@ -68,7 +68,7 @@ router.get('/drop', (req, res)=>{
 
 router.get('/remove', (req, res)=>{ //rm by cfi _id
 	const {id, browser, idcfi} = req.query;
-	Book.update({_id: id}, {$pullAll:{[browser]: [{size: 'min600'}]}}, {safe: true, multi: true}, (err, doc)=>{
+	Book.update({_id: id}, {$pull:{[browser]: {size: 'min600'}}}, {safe: true, multi: true}, (err, doc)=>{
 		if (err)
 			res.send(err);
 		res.send(doc);
