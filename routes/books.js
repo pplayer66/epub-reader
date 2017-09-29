@@ -50,7 +50,7 @@ router.get('/addpage', (req, res)=>{
 		if (err)
 			res.send(err);
 		console.log(result);
-		res.send(result);
+		// res.send(result);
 	});
 });
 
