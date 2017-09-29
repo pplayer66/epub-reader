@@ -48,7 +48,9 @@ router.get('/addpage', (req, res)=>{
 	console.log('name', name);
 	console.log('type', type);
 	Book.update({title: req.query.title}, {$push:{[name]:{cfi, progress, size, type}}}, (err, result)=>{
-		if (err) res.send(err);
+		if (err)
+			res.send(err);
+		res.send(result);
 	});
 });
 
