@@ -683,6 +683,12 @@ input:-ms-placeholder {
        width: 260px;
        height: 410px;
     }
+    #progress{
+      bottom: 0;
+    }
+    #progress-value{
+      bottom: 5px;
+    }
 }
 /* For iPhone landscape layouts only */
 @media only screen and (max-device-width: 480px) and (orientation: landscape) {
