@@ -1,12 +1,3 @@
-@media only screen and (max-width: 480px) {
-	#viewer{
-		font-size: 14px
-		width: 300px;
-		margin-left: auto;
-		margin-right: auto;
-	}
-}
-
 @media only screen and (min-width: 480px) {
 	#viewer{
 		width: 400px;
@@ -97,6 +88,14 @@
 	#viewer{
 		width: 2300px;
 		height: 1200px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+@media only screen and (max-width: 480px) {
+	#viewer{
+		font-size: 14px
+		width: 300px;
 		margin-left: auto;
 		margin-right: auto;
 	}
