@@ -149,9 +149,9 @@ document.onreadystatechange = function () {
 				})
 		};
 
-		book.on('renderer:visibleRangeChanged', sendDataCfi);
-		// addWindowResizeListener();
-		// fetchDataCfi();
+		// book.on('renderer:visibleRangeChanged', sendDataCfi);
+		addWindowResizeListener();
+		fetchDataCfi();
 		// addBook();
 	}
 };
