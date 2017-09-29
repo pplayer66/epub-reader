@@ -31,6 +31,7 @@ app.use('/book', book);
 
 app.get('/device', (req, res)=>{
 	const {device:{type}} = ua_parser(req.headers['user-agent']);
+	console.log(type);
 	res.send(type);
 
 });
