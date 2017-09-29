@@ -11,9 +11,9 @@ document.onreadystatechange = function () {
 		var currentTotal = 0;
 
 
-		$(window).resize(function(){
-			console.log($(window).width());
-		});
+		// $(window).resize(function(){
+		// 	console.log($(window).width());
+		// });
 
 		book.on('renderer:chapterDisplayed', function() {
 			$('.overlay').show();
@@ -119,8 +119,7 @@ document.onreadystatechange = function () {
 					book.on("renderer:visibleRangeChanged", function(cfirange){
 						var curloc = book.getCurrentLocationCfi();
 						if (!book.pages[curloc]){
-							console.log(book.pages[curloc]);
-							return book.nextPage();
+							return;
 						}
 						var currentLocation = getLocation();
 						var currentProgress = book.pages[currentLocation].progress;
