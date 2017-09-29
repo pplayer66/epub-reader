@@ -9,6 +9,7 @@ document.onreadystatechange = function () {
 		var progressValue = document.getElementById('progress-value');
 		var title = 'Падение Трои - Питер Акройд';
 		var currentTotal = 0;
+		var total = 0;
 
 
 		$(window).resize(function(){
@@ -90,13 +91,31 @@ document.onreadystatechange = function () {
 
 		var addWindowResizeListener = function(){
 			$(window).resize(function(e){
+				removeListenerToCfiChange();
 				var windowSize = getDocumentWidth();
 				if (windowSize===currentSize)
 					return;
 				currentSize = windowSize;
-				setRelevantCfis()
+				var currentLocation = book.getCurrentLocationCfi();
+				addListenerToCfiChange();
 			});
 		};
+
+		var addListenerToCfiChange = function(){
+			book.on("renderer:visibleRangeChanged", function(cfirange){
+				mapCfiToProgress();
+				var currentProgress = book.pages[currentLocation].progress;
+				var percentage = (currentProgress * 100) / total;
+				progressBar.style.display = 'block';
+				progressValue.innerText = `${percentage.toFixed(2)}%`;
+				progressStatus.style.width = `${percentage.toFixed(2)}%`;
+			});
+		}
+		var removeListenerToCfiChange = function(){
+			book.on("renderer:visibleRangeChanged", function(cfirange){
+				return;
+			});
+		}
 
 		var fetchDataCfi = function()
 		{
@@ -105,32 +124,16 @@ document.onreadystatechange = function () {
 				url: `/book/pages?title=${title}`,
 				type: 'GET',
 				success: function(data){
-					var size = getDocumentWidth();
 					book.total = data;
-					data = _.filter(data, {size});
-					console.log('filtered size data', data);
-					var total = data[data.length-1].progress;
-					book.pages = _.keyBy(data, 'cfi');
-					book.on("renderer:visibleRangeChanged", function(cfirange){
-						var currentLocation = book.getCurrentLocationCfi();
-						if (!book.pages[currentLocation]){
-							console.log('false cfi');
-							return;
-						}
-						var currentProgress = book.pages[currentLocation].progress;
-						var percentage = (currentProgress * 100) / total;
-						progressBar.style.display = 'block';
-						progressValue.innerText = `${percentage.toFixed(2)}%`;
-						progressStatus.style.width = `${percentage.toFixed(2)}%`;
-					});
 				},
 				error: function(err){console.log(err)}
 			})
 		};
 
-
-		var setRelevantCfis = function(){
-			book.pages = _.keyBy(_.filter(book.total, {size: currentSize}), 'cfi');
+		var mapCfiToProgress = function(){
+			var data = _.filter(book.total, {size: currentSize});
+			total = data[data.length-1].progress;
+			book.pages = _.keyBy(data, 'cfi');
 		}
 
 		var addBook = function()
