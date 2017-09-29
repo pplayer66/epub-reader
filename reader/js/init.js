@@ -14,7 +14,7 @@ document.onreadystatechange = function () {
 			$('.overlay').show();
 			setTimeout(function(){
 				$('.overlay').hide();
-			}, 300);
+			}, 400);
 			EPUBJS.core.addCss('/css/styles.css', null, book.renderer.doc.head);
 		});
 
@@ -144,7 +144,7 @@ document.onreadystatechange = function () {
 				})
 		};
 
-		// book.on('renderer:visibleRangeChanged', sendDataCfi);
+		book.on('renderer:visibleRangeChanged', sendDataCfi);
 		addWindowResizeListener();
 		fetchDataCfi();
 		// addBook();
