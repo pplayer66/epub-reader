@@ -105,10 +105,10 @@ document.onreadystatechange = function () {
 				url: `/book/pages?title=${title}`,
 				type: 'GET',
 				success: function(data){
-					// var total = data[data.length-1].progress;
 					var size = getDocumentWidth;
 					book.total = data;
 					data = _.filter(data, {size});
+					var total = data[data.length-1].progress;
 					book.pages = _.keyBy(data, 'cfi');
 					book.on("renderer:visibleRangeChanged", function(cfirange){
 						var currentLocation = book.getCurrentLocationCfi();
