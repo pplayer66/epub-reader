@@ -56,6 +56,10 @@
 		margin-left: auto;
 		margin-right: auto;
 	}
+	#divider,
+	#divider.show {
+	display: none;
+	}
 }
 @media only screen and (min-width: 1900px) {
 	#viewer{
@@ -95,8 +99,58 @@
 @media only screen and (max-width: 480px) {
 	#viewer{
 		font-size: 14px
-		width: 300px;
+		width: 260px;
 		margin-left: auto;
 		margin-right: auto;
+	}
+	#prev {
+	left: 0;
+	}
+
+	#next {
+	right: 0;
+	}
+
+	.arrow {
+	height: 100%;
+	top: 45px;
+	width: 10%;
+	text-indent: -10000px;
+	}
+
+	#main {
+	-webkit-transform: translate(0, 0);
+	-moz-transform: translate(0, 0);
+	-ms-transform: translate(0, 0);
+	-webkit-transition: -webkit-transform .3s;
+	-moz-transition: -moz-transform .3s;
+	-ms-transition: -moz-transform .3s;
+	}
+
+	#main.closed {
+	-webkit-transform: translate(260px, 0);
+	-moz-transform: translate(260px, 0);
+	-ms-transform: translate(260px, 0);
+	}
+
+	#titlebar {
+	/* font-size: 16px; */
+	/* margin: 0 50px 0 50px; */
+	}
+
+	#metainfo {
+	font-size: 10px;
+	}
+
+	#tocView {
+	width: 260px;
+	}
+
+	#tocView li {
+	font-size: 12px;
+	}
+
+	#tocView > ul{
+	padding-left: 10px;
 	}
 }
