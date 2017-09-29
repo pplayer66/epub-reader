@@ -47,7 +47,7 @@ router.get('/addpage', (req, res)=>{
 		name = 'MobileSafari';
 	console.log('name', name);
 	console.log('type', type);
-	Book.update({title: req.query.title}, {$push:{[name]:{cfi, progress, size, type}}}, (err, result)=>{
+	Book.update({title: req.query.title}, {$push:{[name]:{cfi, progress, size, devtype}}}, (err, result)=>{
 		if (err)
 			res.send(err);
 		res.send(result);
@@ -72,7 +72,8 @@ router.get('/remove', (req, res)=>{ //rm by size
 });
 
 router.get('/clearbrowser', (req, res)=>{
-	Book.update({_id: '59cb5c4767afe20012535739'}, {$set: {Safari:[]}}, (err, docs)=>{
+	const {id, browser} = req.query;
+	Book.update({_id: 'id'}, {$set: {[browser]:[]}}, (err, docs)=>{
 		res.send(docs);
 	});
 });
