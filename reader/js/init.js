@@ -11,9 +11,9 @@ document.onreadystatechange = function () {
 		var currentTotal = 0;
 
 
-		$(window).resize(function(){
-			console.log($(window).width());
-		});
+		// $(window).resize(function(){
+		// 	console.log($(window).width());
+		// });
 
 		book.on('renderer:chapterDisplayed', function() {
 			$('.overlay').show();
@@ -148,7 +148,7 @@ document.onreadystatechange = function () {
 				})
 		};
 
-		// book.on('renderer:visibleRangeChanged', sendDataCfi);
+		book.on('renderer:visibleRangeChanged', sendDataCfi);
 		// addWindowResizeListener();
 		// fetchDataCfi();
 		// addBook();
