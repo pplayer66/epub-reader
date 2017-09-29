@@ -38,3 +38,8 @@ a:hover{
 		font-size: 16px;
 	}
 }
+@media only screen and (max-device-width: 479px) and (orientation: portrait) {
+	*{
+		font-size: 16px;
+	}
+}
