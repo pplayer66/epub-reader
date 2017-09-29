@@ -93,9 +93,7 @@ document.onreadystatechange = function () {
 				var windowSize = getDocumentWidth();
 				if (windowSize===currentSize)
 					return;
-				$(window).off('resize');
 				currentSize = windowSize;
-				console.log(currentSize);
 				fetchDataCfi();
 				setTimeout(function(){
 					addWindowResizeListener();
