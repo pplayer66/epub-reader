@@ -11,9 +11,9 @@ document.onreadystatechange = function () {
 		var currentTotal = 0;
 
 
-		// $(window).resize(function(){
-		// 	console.log($(window).width());
-		// });
+		$(window).resize(function(){
+			console.log($(window).width());
+		});
 
 		book.on('renderer:chapterDisplayed', function() {
 			$('.overlay').show();
@@ -52,7 +52,7 @@ document.onreadystatechange = function () {
 				type: 'GET',
 				success: function(data){
 					console.log('returned data', data);
-					triggerNextPage(1200);
+					triggerNextPage(500);
 				},
 				error: function(err){console.log(err)}
 			});

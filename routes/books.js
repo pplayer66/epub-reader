@@ -63,8 +63,8 @@ router.get('/drop', (req, res)=>{
 });
 
 router.get('/remove', (req, res)=>{ //rm by size
-	const {id, browser, size} = req.query;
-	Book.update({_id: id}, {$pull:{[browser]: {size}}}, {safe: true, multi: true}, (err, doc)=>{
+	const {id, browser, size, devtype} = req.query;
+	Book.update({_id: id}, {$pull:{[browser]: {size, devtype}}}, {safe: true, multi: true}, (err, doc)=>{
 		if (err)
 			res.send(err);
 		res.send(doc);
