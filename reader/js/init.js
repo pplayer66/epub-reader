@@ -97,14 +97,14 @@ document.onreadystatechange = function () {
 					return;
 				currentSize = windowSize;
 				var currentLocation = book.getCurrentLocationCfi();
-				addListenerToCfiChange();
+				addListenerToCfiChange(currentLocation);
 			});
 		};
 
-		var addListenerToCfiChange = function(){
+		var addListenerToCfiChange = function(curloc){
 			book.on("renderer:visibleRangeChanged", function(cfirange){
 				mapCfiToProgress();
-				var currentProgress = book.pages[currentLocation].progress;
+				var currentProgress = book.pages[curloc].progress;
 				var percentage = (currentProgress * 100) / total;
 				progressBar.style.display = 'block';
 				progressValue.innerText = `${percentage.toFixed(2)}%`;
