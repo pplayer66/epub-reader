@@ -105,9 +105,10 @@ document.onreadystatechange = function () {
 				url: `/book/pages?title=${title}`,
 				type: 'GET',
 				success: function(data){
-					var size = getDocumentWidth;
+					var size = getDocumentWidth();
 					book.total = data;
 					data = _.filter(data, {size});
+					console.log('filtered size data', data);
 					var total = data[data.length-1].progress;
 					book.pages = _.keyBy(data, 'cfi');
 					book.on("renderer:visibleRangeChanged", function(cfirange){
@@ -129,7 +130,7 @@ document.onreadystatechange = function () {
 
 
 		var setRelevantCfis = function(){
-			book.pages = _keyBy(_.filter(book.total, {size: currentSize}), 'cfi');
+			book.pages = _.keyBy(_.filter(book.total, {size: currentSize}), 'cfi');
 		}
 
 		var addBook = function()
