@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('./db/mongoose');
+const ua_parser = require('ua-parser-js');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -28,6 +29,15 @@ app.get('/reader', (req, res)=>{
 
 app.use('/book', book);
 
+app.get('/device', (req, res)=>{
+	var ua = ua_parser(req.headers['user-agent']);
+	res.send(ua.device);
+});
+
+app.get('/browser', (req, res)=>{
+	var ua = ua_parser(req.headers['user-agent']);
+	res.send(ua.browser.name);
+});
 
 app.get('*', (req, res)=>{
 	res.redirect('/reader');
