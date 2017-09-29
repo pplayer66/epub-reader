@@ -120,7 +120,7 @@ document.onreadystatechange = function () {
 						var curloc = book.getCurrentLocationCfi();
 						if (!book.pages[curloc]){
 							console.log(book.pages[curloc]);
-							return console.log('false');
+							return book.nextPage();
 						}
 						var currentLocation = getLocation();
 						var currentProgress = book.pages[currentLocation].progress;
