@@ -12,9 +12,9 @@ document.onreadystatechange = function () {
 		var total = 0;
 
 
-		$(window).resize(function(){
-			console.log($(window).width());
-		});
+		// $(window).resize(function(){
+		// 	console.log($(window).width());
+		// });
 
 		book.on('renderer:chapterDisplayed', function() {
 			$('.overlay').show();
@@ -101,9 +101,14 @@ document.onreadystatechange = function () {
 			});
 		};
 
+        book.on('renderer:locationChanged', function(location){
+        	console.log('location changed');
+        });
+
+
+
 		var addListenerToCfiChange = function(curloc){
 			book.on("renderer:visibleRangeChanged", function(cfirange){
-				mapCfiToProgress();
 				var currentProgress = book.pages[curloc].progress;
 				var percentage = (currentProgress * 100) / total;
 				progressBar.style.display = 'block';
@@ -125,6 +130,7 @@ document.onreadystatechange = function () {
 				type: 'GET',
 				success: function(data){
 					book.total = data;
+					console.log(book.total);
 				},
 				error: function(err){console.log(err)}
 			})
