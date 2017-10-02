@@ -89,18 +89,19 @@ document.onreadystatechange = function () {
 
 		var currentSize = getDocumentWidth();
 
-		var addWindowResizeListener = function(){
-			$(window).resize(function(e){
-				var windowSize = getDocumentWidth();
-				if (windowSize===currentSize)
-					return;
-				currentSize = windowSize;
-			});
-		};
+		// var addWindowResizeListener = function(){
+		// 	$(window).resize(function(e){
+		// 		var windowSize = getDocumentWidth();
+		// 		if (windowSize===currentSize)
+		// 			return;
+		// 		currentSize = windowSize;
+		// 	});
+		// };
 
 		book.on('renderer:locationChanged', function(location){
 			console.log('location changed');
 			mapToCurrentSize();
+			countPercentage();
 		});
 
 		var countPercentage = function(){
@@ -129,8 +130,8 @@ document.onreadystatechange = function () {
 		var mapToCurrentSize = function(){
 			var data = _.filter(book.total, {size: currentSize});
 			console.log('current data', data);
-			// total = data[data.length-1].progress;
-			// book.pages = _.keyBy(data, 'cfi');
+			total = data[data.length-1].progress;
+			book.pages = _.keyBy(data, 'cfi');
 		}
 
 		var addBook = function()
