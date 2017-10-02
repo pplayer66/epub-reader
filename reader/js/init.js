@@ -150,7 +150,7 @@ document.onreadystatechange = function () {
 		};
 
 		// book.on('renderer:visibleRangeChanged', sendDataCfi);
-		addWindowResizeListener();
+		// addWindowResizeListener();
 		fetchDataCfi();
 		// addBook();
 	}
