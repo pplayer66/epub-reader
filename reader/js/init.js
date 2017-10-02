@@ -8,20 +8,59 @@ document.onreadystatechange = function () {
 		var progressBar = document.getElementById('progress');
 		var progressValue = document.getElementById('progress-value');
 		var title = 'Падение Трои - Питер Акройд';
-		var currentTotal = 0;
+		var chapterTotalProgess = 0;
+		var currentChapterProgress = 0;
+		var chapters = [];
 		var total = 0;
+		var currentChapter;
+
+		book.getMetadata().then(function(meta){
+			var title = meta.bookTitle;
+		});
 
 
-		// $(window).resize(function(){
-		// 	console.log($(window).width());
+
+		var getCurrentCfiRange = function(cfirange){
+			var text = '';
+			var currentLocation = book.getCurrentLocationCfi();
+			var nextPageChapter = currentLocation.split('/6/').pop().split('[').shift();
+			if (currentChapter !== nextPageChapter){
+				chapterTotalProgess += currentChapterProgress
+				chapters.push({chapter: currentChapter, progress: chapterTotalProgess});
+				console.log(chapters);
+				currentChapter = nextPageChapter;
+				return;
+			}
+			var cfi = new EPUBJS.EpubCFI();
+			var startRange = cfi.generateRangeFromCfi("epubcfi(/6/2[titlepage]!/4/1:0)", book.renderer.render.document);
+			var endRange = cfi.generateRangeFromCfi(cfirange.end, book.renderer.render.document);
+			var fullRange = document.createRange();
+			if (startRange)
+				fullRange.setStart(startRange.startContainer, startRange.startOffset);
+			if (endRange)
+				fullRange.setEnd(endRange.startContainer, endRange.startOffset);
+			text = fullRange.toString();
+			var textLength = (text.trim()).length;
+			console.log('textLength', textLength);
+			currentChapterProgress = textLength;
+		}
+		
+		// $(document).click(function(){
+		// 	// book.setStyle('font-size', '20px');
+		// 	// book.setStyle('line-height', '2em');
+		// 	// book.setStyle('font-family', 'san-serif');
+		// 	// getCurrentCfiRange()
 		// });
-
+		// $(window).resize(function(){
+		// 	book.setStyle("background", "blue");
+		// })
 		book.on('renderer:chapterDisplayed', function() {
 			$('.overlay').show();
 			setTimeout(function(){
 				$('.overlay').hide();
 			}, 400);
 			EPUBJS.core.addCss('/css/styles.css', null, book.renderer.doc.head);
+			book.setStyle('font-size', '16px');
 		});
 
 		var triggerNextPage = function(t)
@@ -31,81 +70,39 @@ document.onreadystatechange = function () {
 			}, t)
 		};
 
-		var sendDataCfi = function(cfirange)
-		{
-			var text = '';
-			var cfi = new EPUBJS.EpubCFI();
-			var startRange = cfi.generateRangeFromCfi(cfirange.start, book.renderer.render.document);
-			var endRange = cfi.generateRangeFromCfi(cfirange.end, book.renderer.render.document);
-			// Create a new range to handle full cfi range (this should be fixed in v0.3)
-			var fullRange = document.createRange();
-			if (startRange)
-				fullRange.setStart(startRange.startContainer, startRange.startOffset);
-			if (endRange)
-				fullRange.setEnd(endRange.startContainer, endRange.startOffset);
-			text = fullRange.toString();
-			textLength = (text.trim()).length;
-			currentTotal = currentTotal + textLength;
-			var currentLocation = book.getCurrentLocationCfi();
-			var size = getDocumentWidth();
-			$.ajax({
-				url: `/book/addpage?title=${title}&cfi=${currentLocation}&progress=${currentTotal}&size=${size}`,
-				type: 'GET',
-				success: function(data){
-					console.log('returned data', data);
-					triggerNextPage(500);
-				},
-				error: function(err){console.log(err)}
-			});
-		};
+		// var sendDataCfi = function(cfirange)
+		// {
+		// 	var text = '';
+		// 	var cfi = new EPUBJS.EpubCFI();
+		// 	var startRange = cfi.generateRangeFromCfi(cfirange.start, book.renderer.render.document);
+		// 	var endRange = cfi.generateRangeFromCfi(cfirange.end, book.renderer.render.document);
+		// 	// Create a new range to handle full cfi range (this should be fixed in v0.3)
+		// 	var fullRange = document.createRange();
+		// 	if (startRange)
+		// 		fullRange.setStart(startRange.startContainer, startRange.startOffset);
+		// 	if (endRange)
+		// 		fullRange.setEnd(endRange.startContainer, endRange.startOffset);
+		// 	text = fullRange.toString();
+		// 	textLength = (text.trim()).length;
+		// 	currentTotal = currentTotal + textLength;
+		// 	var currentLocation = book.getCurrentLocationCfi();
+		// 	var size = getDocumentWidth();
+		// 	$.ajax({
+		// 		url: `/book/addpage?title=${title}&cfi=${currentLocation}&progress=${currentTotal}&size=${size}`,
+		// 		type: 'GET',
+		// 		success: function(data){
+		// 			console.log('returned data', data);
+		// 			triggerNextPage(500);
+		// 		},
+		// 		error: function(err){console.log(err)}
+		// 	});
+		// };
 
-		var getDocumentWidth = function(){
-			var currentWidth = $(document).width();
-			var width;
-			if (currentWidth >= 1900)
-				width='min1900';
-			else if (currentWidth >= 1700)
-				width='min1700';
-			else if (currentWidth >= 1500)
-				width='min1500';
-			else if (currentWidth >= 1300)
-				width='min1300';
-			else if (currentWidth >= 950)
-				width='min950';
-			else if (currentWidth >= 750)
-				width='min750';
-			else if (currentWidth >= 600)
-				width='min600';
-			else if (currentWidth >= 480)
-				width='min480';
-			else if (currentWidth < 480)
-				width='max479';
-			return width;
-		};
 
 		var getLocation = function(){
 			return book.getCurrentLocationCfi();
 		}
 
-		var currentSize = getDocumentWidth();
-
-		// var addWindowResizeListener = function(){
-		// 	$(window).resize(function(e){
-		// 		var windowSize = getDocumentWidth();
-		// 		if (windowSize===currentSize)
-		// 			return;
-		// 		currentSize = windowSize;
-		// 	});
-		// };
-
-		book.on('renderer:locationChanged', function(location){
-			var windowSize = getDocumentWidth();
-			if (windowSize===currentSize)
-				return;
-			currentSize = windowSize;
-			mapToCurrentSize();
-			countPercentage();
-		});
 
 		var countPercentage = function(){
 			console.log('current location progress', book.pages[getLocation()]);
@@ -117,40 +114,10 @@ document.onreadystatechange = function () {
 			progressValue.innerText = `${percentage.toFixed(2)}%`;
 			progressStatus.style.width = `${percentage.toFixed(2)}%`;
 		}
-		// book.on('renderer:locationChanged', function(location){
-		// 	console.log('location changed');
-		// 	mapToCurrentSize();
-		// 	countPercentage();
-		// });
 
-		var fetchDataCfi = function()
-		{
-			$.ajax(
-			{
-				url: `/book/pages?title=${title}`,
-				type: 'GET',
-				success: function(data){
-					book.total = data;
-					console.log(book.total);
-					book.on('renderer:visibleRangeChanged', function(location){
-						console.log('location changed');
-						mapToCurrentSize();
-						countPercentage();
-					});
-				},
-				error: function(err){console.log(err)}
-			})
-		};
 
-		var mapToCurrentSize = function(){
-			var cursize = getDocumentWidth();
-			var data = _.filter(book.total, {size: cursize});
-			console.log('current data', data);
-			total = data[data.length-1].progress;
-			console.log('total', total);
-			book.pages = _.keyBy(data, 'cfi');
-			console.log('bookpages', book.pages);
-		}
+
+
 
 		var addBook = function()
 		{
@@ -167,9 +134,7 @@ document.onreadystatechange = function () {
 				})
 		};
 
-		// book.on('renderer:visibleRangeChanged', sendDataCfi);
-		// addWindowResizeListener();
-		fetchDataCfi();
+		book.on('renderer:visibleRangeChanged', getCurrentCfiRange);
 		// addBook();
 	}
 };
