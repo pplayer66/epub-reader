@@ -130,7 +130,7 @@ document.onreadystatechange = function () {
 				success: function(data){
 					book.total = data;
 					console.log(book.total);
-					book.on('renderer:locationChanged', function(location){
+					book.on('renderer:visibleRangeChanged', function(location){
 						console.log('location changed');
 						mapToCurrentSize();
 						countPercentage();
