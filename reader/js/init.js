@@ -54,6 +54,8 @@ document.onreadystatechange = function () {
 		// $(window).resize(function(){
 		// 	book.setStyle("background", "blue");
 		// })
+
+		
 		book.on('renderer:chapterDisplayed', function() {
 			$('.overlay').show();
 			setTimeout(function(){
@@ -70,33 +72,6 @@ document.onreadystatechange = function () {
 			}, t)
 		};
 
-		// var sendDataCfi = function(cfirange)
-		// {
-		// 	var text = '';
-		// 	var cfi = new EPUBJS.EpubCFI();
-		// 	var startRange = cfi.generateRangeFromCfi(cfirange.start, book.renderer.render.document);
-		// 	var endRange = cfi.generateRangeFromCfi(cfirange.end, book.renderer.render.document);
-		// 	// Create a new range to handle full cfi range (this should be fixed in v0.3)
-		// 	var fullRange = document.createRange();
-		// 	if (startRange)
-		// 		fullRange.setStart(startRange.startContainer, startRange.startOffset);
-		// 	if (endRange)
-		// 		fullRange.setEnd(endRange.startContainer, endRange.startOffset);
-		// 	text = fullRange.toString();
-		// 	textLength = (text.trim()).length;
-		// 	currentTotal = currentTotal + textLength;
-		// 	var currentLocation = book.getCurrentLocationCfi();
-		// 	var size = getDocumentWidth();
-		// 	$.ajax({
-		// 		url: `/book/addpage?title=${title}&cfi=${currentLocation}&progress=${currentTotal}&size=${size}`,
-		// 		type: 'GET',
-		// 		success: function(data){
-		// 			console.log('returned data', data);
-		// 			triggerNextPage(500);
-		// 		},
-		// 		error: function(err){console.log(err)}
-		// 	});
-		// };
 
 
 		var getLocation = function(){
@@ -114,8 +89,6 @@ document.onreadystatechange = function () {
 			progressValue.innerText = `${percentage.toFixed(2)}%`;
 			progressStatus.style.width = `${percentage.toFixed(2)}%`;
 		}
-
-
 
 
 
