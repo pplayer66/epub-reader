@@ -147,7 +147,7 @@ document.onreadystatechange = function () {
 			total = data[data.length-1].progress;
 			console.log('total', total);
 			book.pages = _.keyBy(data, 'cfi');
-			console.log('bookpages', bookpages);
+			console.log('bookpages', book.pages);
 		}
 
 		var addBook = function()
