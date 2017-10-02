@@ -91,36 +91,26 @@ document.onreadystatechange = function () {
 
 		var addWindowResizeListener = function(){
 			$(window).resize(function(e){
-				removeListenerToCfiChange();
 				var windowSize = getDocumentWidth();
 				if (windowSize===currentSize)
 					return;
 				currentSize = windowSize;
-				var currentLocation = book.getCurrentLocationCfi();
-				addListenerToCfiChange(currentLocation);
 			});
 		};
 
-        book.on('renderer:locationChanged', function(location){
-        	console.log('location changed');
-        });
+		book.on('renderer:locationChanged', function(location){
+			console.log('location changed');
+			mapToCurrentSize();
+		});
 
-
-
-		var addListenerToCfiChange = function(curloc){
-			book.on("renderer:visibleRangeChanged", function(cfirange){
-				var currentProgress = book.pages[curloc].progress;
-				var percentage = (currentProgress * 100) / total;
-				progressBar.style.display = 'block';
-				progressValue.innerText = `${percentage.toFixed(2)}%`;
-				progressStatus.style.width = `${percentage.toFixed(2)}%`;
-			});
+		var countPercentage = function(){
+			var currentProgress = book.pages[getLocation()].progress;
+			var percentage = (currentProgress * 100) / total;
+			progressBar.style.display = 'block';
+			progressValue.innerText = `${percentage.toFixed(2)}%`;
+			progressStatus.style.width = `${percentage.toFixed(2)}%`;
 		}
-		var removeListenerToCfiChange = function(){
-			book.on("renderer:visibleRangeChanged", function(cfirange){
-				return;
-			});
-		}
+
 
 		var fetchDataCfi = function()
 		{
@@ -136,10 +126,11 @@ document.onreadystatechange = function () {
 			})
 		};
 
-		var mapCfiToProgress = function(){
+		var mapToCurrentSize = function(){
 			var data = _.filter(book.total, {size: currentSize});
-			total = data[data.length-1].progress;
-			book.pages = _.keyBy(data, 'cfi');
+			console.log('current data', data);
+			// total = data[data.length-1].progress;
+			// book.pages = _.keyBy(data, 'cfi');
 		}
 
 		var addBook = function()
