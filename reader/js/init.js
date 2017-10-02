@@ -109,6 +109,8 @@ document.onreadystatechange = function () {
 
 		var countPercentage = function(){
 			console.log('current location progress', book.pages[getLocation()]);
+			if (!book.pages[getLocation()])
+				return;
 			var currentProgress = book.pages[getLocation()].progress;
 			var percentage = (currentProgress * 100) / total;
 			progressBar.style.display = 'block';
