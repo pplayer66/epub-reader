@@ -140,7 +140,8 @@ document.onreadystatechange = function () {
 		};
 
 		var mapToCurrentSize = function(){
-			var data = _.filter(book.total, {size: currentSize});
+			var cursize = getDocumentWidth();
+			var data = _.filter(book.total, {size: cursize});
 			console.log('current data', data);
 			total = data[data.length-1].progress;
 			book.pages = _.keyBy(data, 'cfi');
