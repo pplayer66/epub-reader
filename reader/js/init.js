@@ -108,6 +108,7 @@ document.onreadystatechange = function () {
 		});
 
 		var countPercentage = function(){
+			console.log('current location progress', book.pages[getLocation()]);
 			var currentProgress = book.pages[getLocation()].progress;
 			var percentage = (currentProgress * 100) / total;
 			progressBar.style.display = 'block';
@@ -144,7 +145,9 @@ document.onreadystatechange = function () {
 			var data = _.filter(book.total, {size: cursize});
 			console.log('current data', data);
 			total = data[data.length-1].progress;
+			console.log('total', total);
 			book.pages = _.keyBy(data, 'cfi');
+			console.log('bookpages', bookpages);
 		}
 
 		var addBook = function()
