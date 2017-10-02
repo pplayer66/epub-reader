@@ -99,7 +99,10 @@ document.onreadystatechange = function () {
 		// };
 
 		book.on('renderer:locationChanged', function(location){
-			console.log('location changed');
+			var windowSize = getDocumentWidth();
+			if (windowSize===currentSize)
+				return;
+			currentSize = windowSize;
 			mapToCurrentSize();
 			countPercentage();
 		});
@@ -111,7 +114,11 @@ document.onreadystatechange = function () {
 			progressValue.innerText = `${percentage.toFixed(2)}%`;
 			progressStatus.style.width = `${percentage.toFixed(2)}%`;
 		}
-
+		book.on('renderer:locationChanged', function(location){
+			console.log('location changed');
+			mapToCurrentSize();
+			countPercentage();
+		});
 
 		var fetchDataCfi = function()
 		{
@@ -122,11 +129,6 @@ document.onreadystatechange = function () {
 				success: function(data){
 					book.total = data;
 					console.log(book.total);
-					book.on('renderer:locationChanged', function(location){
-						console.log('location changed');
-						mapToCurrentSize();
-						countPercentage();
-					});
 				},
 				error: function(err){console.log(err)}
 			})
