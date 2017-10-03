@@ -2,7 +2,7 @@ body{
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 200;
 	color: #444;
-	font-size: 16px;
+	font-size: 20px;
 }
 .calibre7{
 	background: transparent;
@@ -27,8 +27,8 @@ li{
 a{
 	text-decoration: none;
 }
-.calibre5{
-
+.calibre5 > a{
+	
 }
 a:hover{
 	color: #888;

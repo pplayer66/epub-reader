@@ -110,8 +110,8 @@ ul{
 }
 
 #viewer {
-  width: 1170px;
-  height: 750px;
+  width: 90%;
+  height: 80%;
   /* margin-left: 10%; */
   margin: 0 auto;
   z-index: 2;

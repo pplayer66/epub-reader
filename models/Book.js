@@ -1,37 +1,11 @@
 const mongoose = require('../db/mongoose');
 
 const bookSchema = mongoose.Schema({
-	title:String,
-	Chrome:[
+	title: String,
+	chapters:[
 		{
-			cfi: String,
-			progress: Number,
-			size: String,
-			devtype: String
-		}
-	],
-	Firefox:[
-		{
-			cfi: String,
-			progress: Number,
-			size: String,
-			devtype: String
-		}
-	],
-	Safari:[
-		{
-			cfi: String,
-			progress: Number,
-			size: String,
-			devtype: String
-		}
-	],
-	MobileSafari:[
-		{
-			cfi: String,
-			progress: Number,
-			size: String,
-			devtype: String
+			chapter: String,
+			progress: Number
 		}
 	]
 });

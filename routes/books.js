@@ -17,65 +17,20 @@ router.get('/addbook', (req, res)=>{
 	)
 });
 
-router.get('/all', (req, res)=>{
-	Book.find({}, (err, books)=>{
+router.get('/chapters', (req, res)=>{
+	Book.findOne({title:req.query.title}, (err, result)=>{
 		if (err)
 			res.send(err);
-		res.send(books);
-	})
-})
-
-router.get('/pages', (req, res)=>{
-	const {title} = req.query;
-	var {browser:{name}, device:{type}} = ua_parser(req.headers['user-agent']);
-	const devtype = !type ? 'desktop' : 'mobile';
-	if (name === 'Mobile Safari')
-		name = 'MobileSafari';
-	Book.findOne({title}, (err, result)=>{
-		const pages = result[name].filter((item)=>{
-			if (item.devtype === devtype)
-				return item;
-		});
-		res.send(pages);
-	});
-})
-
-router.get('/addpage', (req, res)=>{
-	const {title, cfi, progress, size} = req.query;
-	var {browser:{name}, device:{type}} = ua_parser(req.headers['user-agent']);
-	const devtype = !type ? 'desktop' : 'mobile';
-	if (name === 'Mobile Safari')
-		name = 'MobileSafari';
-	console.log('name', name);
-	console.log('type', type);
-	Book.update({title: req.query.title}, {$push:{[name]:{cfi, progress, size, devtype}}}, (err, result)=>{
-		if (err)
-			res.send(err);
-		res.send(result);
+		res.send(result.chapters);
 	});
 });
 
-router.get('/drop', (req, res)=>{
-	Book.remove({}, (err, deleted)=>{
+router.get('/addchapter', (req, res)=>{
+	const { title, chapter, progress } = req.query;
+	Book.update({title}, {$push:{chapters: {chapter, progress}}}, (err, item)=>{
 		if (err)
 			res.send(err);
-		res.send(deleted);
-	})
-});
-
-router.get('/remove', (req, res)=>{ //rm by size
-	const {id, browser, size, devtype} = req.query;
-	Book.update({_id: id}, {$pull:{[browser]: {size, devtype}}}, {safe: true, multi: true}, (err, doc)=>{
-		if (err)
-			res.send(err);
-		res.send(doc);
-	});
-});
-
-router.get('/clearbrowser', (req, res)=>{
-	const {id, browser} = req.query;
-	Book.update({_id: 'id'}, {$set: {[browser]:[]}}, (err, docs)=>{
-		res.send(docs);
+		res.send(item);
 	});
 });
 
