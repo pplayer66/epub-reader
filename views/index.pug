@@ -23,9 +23,9 @@ html.no-js
 	body
 		#sidebar
 			#panels
-				a#show-Toc.show_view.icon-list-1.active(data-view="Toc") TOC
+				a#show-Toc.show_view.icon-list.active(data-view="Toc") TOC
 				a#show-Bookmarks.show_view.icon-bookmark(data-view="Bookmarks") Bookmarks
-				a#show-Notes.show_view.icon-edit(data-view="Notes") Notes
+				a#show-Notes.show_view.icon-pencil(data-view="Notes") Notes
 			#tocView.view
 				h3.viewTitle Главы
 			#searchView.view
@@ -41,7 +41,7 @@ html.no-js
 				h3.viewTitle(style='margin-left:15px') Заметки
 				#new-note
 					textarea#note-text
-					button#note-anchor Anchor
+					button#note-anchor заметка
 				ol#notes
 		#main
 			#titlebar
@@ -52,8 +52,47 @@ html.no-js
 					span#title-seperator  - 
 					span#chapter-title
 				#title-controls
-					a#bookmark.icon-bookmark-empty Bookmark
-					a#fullscreen.icon-resize-full Fullscreen
+					a#settings.icon-cog Settings
+					#settings-panel
+						.setting#fontfamily-setting
+							.setting-title
+								i.icon-font
+								span Шрифт
+							.setting-content
+								span.setting-content-value#ArialRegular Arial
+								span.setting-content-value#TimesNewRomanRegular Times New Roman
+								span.setting-content-value#HelveticaRegular.active-setting Helvetica
+						.setting#fontsize-setting
+							.setting-title
+								i.icon-fontsize-1
+								span Размер шрифта
+							.setting-content
+								span#font16.setting-content-value.active-setting 16px
+								span#font20.setting-content-value 20px
+								span#font24.setting-content-value 24px
+						.setting#interval-setting
+							.setting-title
+								i.icon-align-left
+								span Межстрочный интервал
+							.setting-content
+								span.setting-content-value#1-2em.active-setting мелкий
+								span.setting-content-value#1-6em средний
+								span.setting-content-value#2em большой
+						.setting#theme-setting
+							.setting-title
+								i.icon-picture
+								span Фон
+							.setting-content.theme
+								span.setting-content-value#yellow.active-setting
+								span.setting-content-value#white
+								span.setting-content-value#grey
+						.setting#nightwatch-setting.clearfix
+							.setting-title(style='float:left')
+								span Ночной режим
+							.setting-content(style='float:right;margin-top:0')
+								i.night-icon.icon-moon-inv
+					a#bookmark.icon-bookmark-empty Сделать закладку
+					a#fullscreen.icon-resize-full Полноэкранный режим
 			#divider
 			#prev.arrow ‹
 			#viewer

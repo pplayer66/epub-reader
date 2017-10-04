@@ -11,6 +11,16 @@ document.onreadystatechange = function () {
 		var title = 'Падение Трои';
  		var chaptersTotalProgress = 0;
 
+		$('#settings').click(function(){
+			var $panel = $('#settings-panel');
+			if ($panel.hasClass('opened')){
+				$panel.removeClass('opened')
+				$panel.fadeOut(200);
+			}else{
+				$panel.addClass('opened')
+				$panel.fadeIn(200);
+			}
+		})
 
 		// book.getMetadata().then(function(meta){
 		// 	var title = meta.bookTitle;
@@ -29,8 +39,6 @@ document.onreadystatechange = function () {
 
 			}
 		});
-
-
 
 		var getVisibleRangeTextLength = function(cfirange){
 			if(book.renderer.chapterPos == Math.ceil(book.currentChapter.pages / 2)) {
@@ -69,7 +77,6 @@ document.onreadystatechange = function () {
 				$('.overlay').hide();
 			}, 400);
 			EPUBJS.core.addCss('/css/styles.css', null, book.renderer.doc.head);
-			book.setStyle('font-size', '20px');
 		});
 
 		var triggerNextPage = function(t)
@@ -78,9 +85,6 @@ document.onreadystatechange = function () {
 				book.nextPage();
 			}, t)
 		};
-
-
-
 
 		var countProgress = function(cfirange){
 			var text='';

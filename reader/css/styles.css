@@ -1,8 +1,36 @@
+@font-face {
+		font-family: "ArialRegular";
+		src: url("../font/ArialRegular.eot");
+		src: url("../font/ArialRegular.eot?#iefix")format("embedded-opentype"),
+		url("../font/ArialRegular.woff") format("woff"),
+		url("../font/ArialRegular.ttf") format("truetype");
+		font-style: normal;
+		font-weight: normal;
+}
+@font-face {
+		font-family: "TimesNewRomanRegular";
+		src: url("../font/TimesNewRomanRegular.eot");
+		src: url("../font/TimesNewRomanRegular.eot?#iefix")format("embedded-opentype"),
+		url("../font/TimesNewRomanRegular.woff") format("woff"),
+		url("../font/TimesNewRomanRegular.ttf") format("truetype");
+		font-style: normal;
+		font-weight: normal;
+}
+@font-face {
+		font-family: "HelveticaRegular";
+		src: url("../font/HelveticaRegular.eot");
+		src: url("../font/HelveticaRegular.eot?#iefix")format("embedded-opentype"),
+		url("../font/HelveticaRegular.woff") format("woff"),
+		url("../font/HelveticaRegular.ttf") format("truetype");
+		font-style: normal;
+		font-weight: normal;
+}
 body{
-	font-family: 'Open Sans', sans-serif;
+	font-family: 'HelveticaRegular', sans-serif;
 	font-weight: 200;
-	color: #444;
+	color: #655757;
 	font-size: 20px;
+	line-height: 1.2em;
 }
 .calibre7{
 	background: transparent;
@@ -26,6 +54,7 @@ li{
 }
 a{
 	text-decoration: none;
+	color: #b98f8f;
 }
 .calibre5 > a{
 	
