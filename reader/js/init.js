@@ -10,10 +10,7 @@ document.onreadystatechange = function () {
 
 		var title = 'Падение Трои';
  		var chaptersTotalProgress = 0;
-		var currentChapterTotalProgress = 0;
-		var currentChapter;
-		var newChapter;
-		var currentCfi;
+
 
 		// book.getMetadata().then(function(meta){
 		// 	var title = meta.bookTitle;
@@ -26,8 +23,6 @@ document.onreadystatechange = function () {
 			success: function(chapters){
 				book.chapters = chapters;
 				book.total = +(chapters[chapters.length - 1].progress);
-				console.log('book chapters', book.chapters);
-				console.log('booktotal', book.total);
 				book.on('renderer:visibleRangeChanged', countProgress);
 			},
 			error: function(err){
@@ -104,8 +99,6 @@ document.onreadystatechange = function () {
 			});
 			var idx = index - 1;
 			if (idx >= 0){
-				console.log('index', index);
-				console.log('idx', idx);
 				var currentProgress = book.chapters[idx].progress + textLength;
 				var percentage = (currentProgress * 100) / book.total;
 				progressBar.style.display = 'block';
