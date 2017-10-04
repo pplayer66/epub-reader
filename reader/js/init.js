@@ -27,18 +27,18 @@ document.onreadystatechange = function () {
 		// });
 
 
-		$.ajax({
-			url: `/book/chapters?title=${title}`,
-			type: 'GET',
-			success: function(chapters){
-				book.chapters = chapters;
-				book.total = +(chapters[chapters.length - 1].progress);
-				book.on('renderer:visibleRangeChanged', countProgress);
-			},
-			error: function(err){
+		// $.ajax({
+		// 	url: `/book/chapters?title=${title}`,
+		// 	type: 'GET',
+		// 	success: function(chapters){
+		// 		book.chapters = chapters;
+		// 		book.total = +(chapters[chapters.length - 1].progress);
+		// 		book.on('renderer:visibleRangeChanged', countProgress);
+		// 	},
+		// 	error: function(err){
 
-			}
-		});
+		// 	}
+		// });
 
 		var getVisibleRangeTextLength = function(cfirange){
 			if(book.renderer.chapterPos == Math.ceil(book.currentChapter.pages / 2)) {
@@ -59,19 +59,17 @@ document.onreadystatechange = function () {
 					type: 'GET',
 					success: function(data){
 						console.log(data);
-						triggerNextPage(1000);
 					},
 					error: function(err){
 						console.log(err);
 					}
 				});
-			}else{
-			triggerNextPage(500);
-			}
+			};
+			return;
 		}
 
 		book.on('renderer:chapterDisplayed', function() {
-			// book.on('renderer:visibleRangeChanged', getVisibleRangeTextLength);
+			book.on('renderer:visibleRangeChanged', getVisibleRangeTextLength);
 			$('.overlay').show();
 			setTimeout(function(){
 				$('.overlay').hide();
