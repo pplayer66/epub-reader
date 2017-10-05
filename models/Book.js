@@ -5,7 +5,9 @@ const bookSchema = mongoose.Schema({
 	chapters:[
 		{
 			chapter: String,
-			progress: Number
+			cfi: String,
+			progress: Number,
+			chapterTitle: String
 		}
 	]
 });

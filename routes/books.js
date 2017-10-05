@@ -26,8 +26,8 @@ router.get('/chapters', (req, res)=>{
 });
 
 router.get('/addchapter', (req, res)=>{
-	const { title, chapter, progress } = req.query;
-	Book.update({title}, {$push:{chapters: {chapter, progress}}}, (err, item)=>{
+	const { title, chapter, progress, cfi, chapterTitle } = req.query;
+	Book.update({title}, {$push:{chapters: {chapter, progress, cfi, chapterTitle}}}, (err, item)=>{
 		if (err)
 			res.send(err);
 		res.send(item);

@@ -7,9 +7,19 @@ document.onreadystatechange = function () {
 		var progressStatus = document.getElementById('progress-status');
 		var progressBar = document.getElementById('progress');
 		var progressValue = document.getElementById('progress-value');
+		var progress = 0;
 
 		var title = 'Падение Трои';
  		var chaptersTotalProgress = 0;
+ 		$progressSlider = $('#progress-slider');
+
+
+ 		var getSliderPositionPercent = function(accuracy){
+			var parentWidth = $('#progress-range').width();
+			var width = $('#progress-status').width();
+			var percent = 100 * width / parentWidth;
+			return percent.toFixed(accuracy);
+ 		}
 
 		$('#settings').click(function(){
 			var $panel = $('#settings-panel');
@@ -22,6 +32,38 @@ document.onreadystatechange = function () {
 			}
 		})
 
+
+		$progressSlider.draggable(
+			{
+				containment: "parent",
+				axis: "x",
+				start: function(){
+					$(this).css('transition', 'none');
+					$('#progress-status').css('transition', 'none');
+					$('#current-chapter').css('display', 'block');
+				},
+				drag: function(e){
+					$('#progress-status').width($(this).css('left'));
+					$('#progress-value').text(`${getSliderPositionPercent(2)}%`);
+					progress = (getSliderPositionPercent(4) * book.total) / 100;
+					var i = 0;
+					while (book.chapters[i].progress < progress){
+						i++;
+					}
+					$('#current-chapter').text(book.chapters[i].chapterTitle);
+				},
+				stop: function(e){
+					$('#progress-status').css('transition', 'width 0.2s ease');
+					$(this).css('transition', 'left .2s ease');
+					// var progress = (getSliderPositionPercent(4) * book.total) / 100;
+					var i = 0;
+					$('#current-chapter').css('display', 'none');
+					while (book.chapters[i].progress < progress){
+						i++;
+					}
+					book.goto(book.chapters[i].cfi);
+				}
+		});
 		// book.getMetadata().then(function(meta){
 		// 	var title = meta.bookTitle;
 		// });
@@ -32,11 +74,12 @@ document.onreadystatechange = function () {
 			type: 'GET',
 			success: function(chapters){
 				book.chapters = chapters;
+				console.log(book.chapters);
 				book.total = +(chapters[chapters.length - 1].progress);
 				book.on('renderer:visibleRangeChanged', countProgress);
 			},
 			error: function(err){
-
+				console.log(err);
 			}
 		});
 
@@ -55,7 +98,7 @@ document.onreadystatechange = function () {
 				var textLength = (text.trim()).length;
 				chaptersTotalProgress += textLength;
 				$.ajax({
-					url: `/book/addchapter?title=${title}&chapter=${book.currentChapter.cfiBase}&progress=${chaptersTotalProgress}`,
+					url: `/book/addchapter?title=${title}&chapter=${book.currentChapter.cfiBase}&progress=${chaptersTotalProgress}&cfi=${book.currentChapter.cfi}&chapterTitle=${$.trim($('.toc_link').eq(book.currentChapter.spinePos-2).text())}`,
 					type: 'GET',
 					success: function(data){
 						console.log(data);
@@ -85,6 +128,8 @@ document.onreadystatechange = function () {
 		};
 
 		var countProgress = function(cfirange){
+			console.log(book.currentChapter);
+			console.log($.trim($('.toc_link').eq(0).text()));
 			var text='';
 			var cfi = new EPUBJS.EpubCFI();
 			var startRange = cfi.generateRangeFromCfi('epubcfi(/6/2[titlepage]!/4/1:0)', book.renderer.render.document);
@@ -106,8 +151,8 @@ document.onreadystatechange = function () {
 				progressBar.style.display = 'block';
 				progressValue.innerText = `${percentage.toFixed(2)}%`;
 				progressStatus.style.width = `${percentage.toFixed(2)}%`;
+				$progressSlider.css('left', `${percentage.toFixed(2)}%`);
 			}
 		}
-
 	}
 };
