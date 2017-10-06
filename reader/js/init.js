@@ -7,10 +7,13 @@ document.onreadystatechange = function () {
 		var progressStatus = document.getElementById('progress-status');
 		var progressBar = document.getElementById('progress');
 		var progressValue = document.getElementById('progress-value');
+		
+		var currentChapter;
 		var progress = 0;
-
 		var title = 'Падение Трои';
  		var chaptersTotalProgress = 0;
+ 		var initialCfi = 'epubcfi(/6/2[titlepage]!/4/1:0)';
+
  		$progressSlider = $('#progress-slider');
 
 
@@ -50,18 +53,34 @@ document.onreadystatechange = function () {
 					while (book.chapters[i].progress < progress){
 						i++;
 					}
+					currentChapter = book.chapters[i];
 					$('#current-chapter').text(book.chapters[i].chapterTitle);
 				},
 				stop: function(e){
 					$('#progress-status').css('transition', 'width 0.2s ease');
 					$(this).css('transition', 'left .2s ease');
-					// var progress = (getSliderPositionPercent(4) * book.total) / 100;
-					var i = 0;
 					$('#current-chapter').css('display', 'none');
-					while (book.chapters[i].progress < progress){
-						i++;
+					if (progress > currentChapter.progress){
+						
 					}
-					book.goto(book.chapters[i].cfi);
+					var chapterPages = book.renderer.pageMap;
+					// book.goto(book.chapters[i].cfi);
+					if (progress !==0){
+						for (i=0; i <= book.renderer.displayedPages*2; i=i+2){
+							if (chapterPages[i] && chapterPages[i+1]){
+								// console.log(getCfiRangeTextLength(initialCfi, chapterPages[i+1].end));
+								if ((getCfiRangeTextLength(initialCfi, chapterPages[i+1].end) + book.chapters[book.currentChapter.spinePos-2].progress) < progress)
+									continue;
+								else{
+									book.goto(chapterPages[i].start);
+									break;
+								}
+							}else if (chapterPages[i] && !chapterPages[i+1]){
+								book.goto(chapterPages[i].start);
+								break;
+							}
+						};
+					}
 				}
 		});
 		// book.getMetadata().then(function(meta){
@@ -83,7 +102,7 @@ document.onreadystatechange = function () {
 			if(book.renderer.chapterPos == Math.ceil(book.currentChapter.pages / 2)) {
 				var text='';
 				var cfi = new EPUBJS.EpubCFI();
-				var startRange = cfi.generateRangeFromCfi('epubcfi(/6/2[titlepage]!/4/1:0)', book.renderer.render.document);
+				var startRange = cfi.generateRangeFromCfi(initialCfi, book.renderer.render.document);
 				var endRange = cfi.generateRangeFromCfi(cfirange.end, book.renderer.render.document);
 				var fullRange = document.createRange();
 				if (startRange)
@@ -101,7 +120,19 @@ document.onreadystatechange = function () {
 			return;
 		}
 
-
+		var getCfiRangeTextLength = function(start, end){
+			var cfi = new EPUBJS.EpubCFI();
+			var startRange = cfi.generateRangeFromCfi(start, book.renderer.render.document);
+			var endRange = cfi.generateRangeFromCfi(end, book.renderer.render.document);
+			var fullRange = document.createRange();
+			if (startRange)
+				fullRange.setStart(startRange.startContainer, startRange.startOffset);
+			if (endRange)
+				fullRange.setEnd(endRange.startContainer, endRange.startOffset);
+			text = fullRange.toString();
+			var textLength = (text.trim()).length;
+			return textLength;
+		};
 		// book.on('renderer:visibleRangeChanged', function(cfirange){
 		// 	var text='';
 		// 	var cfi = new EPUBJS.EpubCFI();
@@ -119,32 +150,29 @@ document.onreadystatechange = function () {
 
 
 		book.on('renderer:chapterDisplayed', function() {
+			EPUBJS.core.addCss('/css/styles.css', null, book.renderer.doc.head);
 			// book.on('renderer:visibleRangeChanged', getVisibleRangeTextLength);
-			console.log(book.renderer);
-			if (book.renderer.chapterPos == 1){
-				for (i=0; i <= 2; i=i+2){
-					var text='';
-					if (book.renderer.pageMap[i+1] && book.renderer.pageMap[i]){
-						var cfi = new EPUBJS.EpubCFI();
-						var startRange = cfi.generateRangeFromCfi('epubcfi(/6/2[titlepage]!/4/1:0)', book.renderer.render.document);
-						var endRange = cfi.generateRangeFromCfi(book.renderer.pageMap[i+1].end, book.renderer.render.document);
-						var fullRange = document.createRange();
-						if (startRange)
-							fullRange.setStart(startRange.startContainer, startRange.startOffset);
-						if (endRange)
-							fullRange.setEnd(endRange.startContainer, endRange.startOffset);
-						text = fullRange.toString();
-						var textLength = (text.trim()).length;
-						console.log('from chapter',textLength);
-					}
-				}
-			}
-
+			// var chapterPages = book.renderer.pageMap;
 			$('.overlay').show();
 			setTimeout(function(){
 				$('.overlay').hide();
 			}, 400);
-			EPUBJS.core.addCss('/css/styles.css', null, book.renderer.doc.head);
+			// if (progress !==0){
+			// 	for (i=0; i <= book.renderer.displayedPages*2; i=i+2){
+			// 		if (chapterPages[i] && chapterPages[i+1]){
+			// 			// console.log(getCfiRangeTextLength(initialCfi, chapterPages[i+1].end));
+			// 			if ((getCfiRangeTextLength(initialCfi, chapterPages[i+1].end) + book.chapters[book.currentChapter.spinePos-2].progress) < progress)
+			// 				continue;
+			// 			else{
+			// 				book.goto(chapterPages[i].start);
+			// 				break;
+			// 			}
+			// 		}else if (chapterPages[i] && !chapterPages[i+1]){
+			// 			book.goto(chapterPages[i].start);
+			// 			break;
+			// 		}
+			// 	};
+			// }
 		});
 
 		var triggerNextPage = function(t)
@@ -157,7 +185,7 @@ document.onreadystatechange = function () {
 		var countProgress = function(cfirange){
 			var text='';
 			var cfi = new EPUBJS.EpubCFI();
-			var startRange = cfi.generateRangeFromCfi('epubcfi(/6/2[titlepage]!/4/1:0)', book.renderer.render.document);
+			var startRange = cfi.generateRangeFromCfi(initialCfi, book.renderer.render.document);
 			var endRange = cfi.generateRangeFromCfi(cfirange.end, book.renderer.render.document);
 			var fullRange = document.createRange();
 			if (startRange)
