@@ -161,28 +161,17 @@ ul{
 	height: 100%;
 	width: 0;
 	background: #424242;
-	z-index: 5 !important;
 	transition: width .2s ease;
-}
-#progress-status:after{
-	content: '';
-	border: 2px solid #424242;;
-	background-color: #FFFFFF;
-	height: 12px;
-	border-radius:50%;
-	width: 12px;
-	position: absolute;
-	right: 100%;
 }
 #progress-slider{
 	border: 2px solid #424242;;
-	background: transparent;
-	height: 12px;
+	height: 1em;
+	width: 1em;
 	border-radius:50%;
-	width: 12px;
 	position: absolute;
-	left: 0;
-	bottom:-6px;
+	top: -.5em;
+	margin-left: -.5em;
+	background: #fff;
 	transition: left .2s ease;
 }
 #current-chapter{
@@ -190,10 +179,9 @@ ul{
 	color: #fff;
 	display: none;
 	position: absolute;
-	bottom:22px;
+	bottom: 1.5em;
 	left: 50%;
 	transform: translateX(-50%);
-	/*display: inline-block;*/
 	background: #4f4f4f;
 	padding: 5px;
 	border-radius: 2px;
