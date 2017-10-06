@@ -74,12 +74,8 @@ document.onreadystatechange = function () {
 			type: 'GET',
 			success: function(chapters){
 				book.chapters = chapters;
-				console.log(book.chapters);
 				book.total = +(chapters[chapters.length - 1].progress);
 				book.on('renderer:visibleRangeChanged', countProgress);
-			},
-			error: function(err){
-				console.log(err);
 			}
 		});
 
@@ -99,13 +95,7 @@ document.onreadystatechange = function () {
 				chaptersTotalProgress += textLength;
 				$.ajax({
 					url: `/book/addchapter?title=${title}&chapter=${book.currentChapter.cfiBase}&progress=${chaptersTotalProgress}&cfi=${book.currentChapter.cfi}&chapterTitle=${$.trim($('.toc_link').eq(book.currentChapter.spinePos-2).text())}`,
-					type: 'GET',
-					success: function(data){
-						console.log(data);
-					},
-					error: function(err){
-						console.log(err);
-					}
+					type: 'GET'
 				});
 			};
 			return;
@@ -128,8 +118,6 @@ document.onreadystatechange = function () {
 		};
 
 		var countProgress = function(cfirange){
-			console.log(book.currentChapter);
-			console.log($.trim($('.toc_link').eq(0).text()));
 			var text='';
 			var cfi = new EPUBJS.EpubCFI();
 			var startRange = cfi.generateRangeFromCfi('epubcfi(/6/2[titlepage]!/4/1:0)', book.renderer.render.document);
