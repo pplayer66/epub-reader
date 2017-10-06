@@ -780,7 +780,7 @@ input:-ms-placeholder {
 			 height: 410px;
 		}
 		#progress{
-			bottom: 0;
+			bottom: 1em;
 		}
 		#progress-value{
 			bottom: 5px;
