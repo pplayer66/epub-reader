@@ -769,21 +769,21 @@ input:-ms-placeholder {
 /* For iPhone portrait layouts only */
 @media only screen and (max-device-width: 480px) and (orientation: portrait) {
 		#viewer {
-			width: 90%;
-			height: 80%;
+			width: 260px;
+			height: 410px;
 			position: relative;
 			top: -15px;
 		}
 		#viewer iframe {
 			position: absolute;
-			 width: 90%;
-			 height: 80%;
+			 width: 260px;
+			 height: 410px;
 		}
 		#progress{
-			bottom: 5px;
+			bottom: 0;
 		}
 		#progress-value{
-			bottom: 8px;
+			bottom: 5px;
 		}
 }
 /* For iPhone landscape layouts only */
