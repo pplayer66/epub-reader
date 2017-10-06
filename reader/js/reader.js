@@ -504,7 +504,7 @@ EPUBJS.reader.ControlsController = function(book) {
 				$(this).removeClass('icon-moon-inv');
 				$(this).addClass('icon-moon');
 				$('#main').css('background', '#151515');
-				book.setStyle('color', 'e0e0e0');
+				book.setStyle('color', 'afafaf');
 				$themes.off('click')
 			}
 		})
