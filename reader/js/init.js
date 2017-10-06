@@ -174,9 +174,9 @@ document.onreadystatechange = function () {
 				var currentProgress = book.chapters[idx].progress + textLength;
 				var percentage = (currentProgress * 100) / book.total;
 				progressBar.style.display = 'block';
-				progressValue.innerText = `${getSliderPositionPercent(2)}%`;
-				progressStatus.style.width = `${getSliderPositionPercent(2)}%`;
-				$progressSlider.css('left', `${getSliderPositionPercent(2)}%`);
+				progressValue.innerText = `${percentage.toFixed(2)}%`;
+				progressStatus.style.width = `${percentage.toFixed(2)}%`;
+				$progressSlider.css('left', `${percentage.toFixed(2)}%`);
 			}
 		}
 	}
