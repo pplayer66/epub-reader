@@ -504,7 +504,7 @@ EPUBJS.reader.ControlsController = function(book) {
 				$(this).removeClass('icon-moon-inv');
 				$(this).addClass('icon-moon');
 				$('#main').css('background', '#151515');
-				book.setStyle('color', 'afafaf');
+				book.setStyle('color', '#afafaf');
 				$themes.off('click')
 			}
 		})
@@ -569,10 +569,6 @@ EPUBJS.reader.ControlsController = function(book) {
 						// Add CFI fragment to the history
 						history.pushState({}, '', cfiFragment);
 				}
-		});
-
-		book.on('book:pageChanged', function(location){
-				// console.log("page", location.page, location.percentage)
 		});
 
 		return {
@@ -852,14 +848,12 @@ EPUBJS.reader.NotesController = function() {
 				$text.prop("disabled", "true");
 				// listen for selection
 				book.on("renderer:click", insertAtPoint);
-								
 		});
 		
 		annotations.forEach(function(note) {
 				addAnnotation(note);
 		});
-		
-		
+
 		renderer.registerHook("beforeChapterDisplay", function(callback, renderer){
 				var chapter = renderer.currentChapter;
 				annotations.forEach(function(note) {

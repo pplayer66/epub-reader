@@ -101,8 +101,45 @@ document.onreadystatechange = function () {
 			return;
 		}
 
+
+		// book.on('renderer:visibleRangeChanged', function(cfirange){
+		// 	var text='';
+		// 	var cfi = new EPUBJS.EpubCFI();
+		// 	var startRange = cfi.generateRangeFromCfi('epubcfi(/6/2[titlepage]!/4/1:0)', book.renderer.render.document);
+		// 	var endRange = cfi.generateRangeFromCfi(cfirange.end, book.renderer.render.document);
+		// 	var fullRange = document.createRange();
+		// 	if (startRange)
+		// 		fullRange.setStart(startRange.startContainer, startRange.startOffset);
+		// 	if (endRange)
+		// 		fullRange.setEnd(endRange.startContainer, endRange.startOffset);
+		// 	text = fullRange.toString();
+		// 	var textLength = (text.trim()).length;
+		// 	console.log('from page change', textLength);
+		// });
+
+
 		book.on('renderer:chapterDisplayed', function() {
 			// book.on('renderer:visibleRangeChanged', getVisibleRangeTextLength);
+			console.log(book.renderer);
+			if (book.renderer.chapterPos == 1){
+				for (i=0; i <= 2; i=i+2){
+					var text='';
+					if (book.renderer.pageMap[i+1] && book.renderer.pageMap[i]){
+						var cfi = new EPUBJS.EpubCFI();
+						var startRange = cfi.generateRangeFromCfi('epubcfi(/6/2[titlepage]!/4/1:0)', book.renderer.render.document);
+						var endRange = cfi.generateRangeFromCfi(book.renderer.pageMap[i+1].end, book.renderer.render.document);
+						var fullRange = document.createRange();
+						if (startRange)
+							fullRange.setStart(startRange.startContainer, startRange.startOffset);
+						if (endRange)
+							fullRange.setEnd(endRange.startContainer, endRange.startOffset);
+						text = fullRange.toString();
+						var textLength = (text.trim()).length;
+						console.log('from chapter',textLength);
+					}
+				}
+			}
+
 			$('.overlay').show();
 			setTimeout(function(){
 				$('.overlay').hide();
@@ -137,9 +174,9 @@ document.onreadystatechange = function () {
 				var currentProgress = book.chapters[idx].progress + textLength;
 				var percentage = (currentProgress * 100) / book.total;
 				progressBar.style.display = 'block';
-				progressValue.innerText = `${percentage.toFixed(2)}%`;
-				progressStatus.style.width = `${percentage.toFixed(2)}%`;
-				$progressSlider.css('left', `${percentage.toFixed(2)}%`);
+				progressValue.innerText = `${getSliderPositionPercent(2)}%`;
+				progressStatus.style.width = `${getSliderPositionPercent(2)}%`;
+				$progressSlider.css('left', `${getSliderPositionPercent(2)}%`);
 			}
 		}
 	}
