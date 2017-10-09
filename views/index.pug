@@ -21,6 +21,8 @@ html.no-js
 		script(src="js/epub.min.js")
 		script(src="js/hooks.min.js")
 		script(src="js/reader.js")
+		script(src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js")
+		script(src="//yastatic.net/share2/share.js")
 	body
 		#sidebar
 			#panels
@@ -98,6 +100,7 @@ html.no-js
 			#prev.arrow ‹
 			#viewer
 			#next.arrow ›
+			div.ya-share2(data-services="collections,vkontakte,facebook,odnoklassniki,moimir" data-counter="")
 			#progress
 				#progress-range
 					#progress-status
