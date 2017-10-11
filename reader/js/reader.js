@@ -1064,7 +1064,22 @@ EPUBJS.reader.TextFragmentController = function(book) {
 			if (text.length > 0){
 				$textFragmentController.fadeIn();
 				$textfragment.val(text);
-				$("meta[property='og\\:description]").attr("content", text);
+				Ya.share2('#share-block', {
+					theme: {
+						services: 'gplus,facebook,vkontakte,twitter,odnoklassniki',
+						counter: true,
+						lang: 'uk',
+						limit: 3,
+						size: 's',
+						bare: false
+					},
+					content: {
+					url: 'http://epubreader.herokuapp.com/reader',
+					title: 'Падение Трои',
+					description: "Питер Акройд – один из самых популярных современных английских писателей, интеллектуал, эрудит, литературный критик, знаток английской истории – добился успеха в поэзии, эссеистике, романистике, историко-биографической прозе",
+					image: 'http://epubreader.herokuapp.com/reader/img/kitap.jpg'
+					}
+				});
 			}
 		}
 	});
