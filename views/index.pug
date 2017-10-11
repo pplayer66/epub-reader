@@ -4,14 +4,18 @@ html.no-js
 		meta(charset="utf-8")
 		meta(http-equiv="X-UA-Compatible", content="IE=edge,chrome=1")
 		title
-		meta(name="description", content="")
 		meta(name="viewport", content="width=device-width, user-scalable=no")
 		meta(name="apple-mobile-web-app-capable", content="yes")
+		meta(property="og:url" content="http://epubreader.herokuapp.com/reader")
+		meta(property="og:type" content="website")
+		meta(property="og:title" content="Падение Трои")
+		meta(property="og:description" content="Я нашел там дворец Одиссея, этого странника.")
+		meta(property="og:image" content="http://kitap.kz/templates/kitap/img/logo.png")
 		link(href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet")
 		link(rel="stylesheet", href="css/normalize.css")
 		link(rel="stylesheet", href="css/main.css")
 		link(rel="stylesheet", href="css/popup.css")
-		//- link(rel="stylesheet", href="css/media.css")
+		script(src="js/fb.js")
 		script(src="js/libs/jquery.min.js")
 		script(src="js/libs/jquery-ui.min.js")
 		script(src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js")
@@ -24,6 +28,8 @@ html.no-js
 		script(src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js")
 		script(src="//yastatic.net/share2/share.js")
 	body
+		div#fb-root
+		srcipt(src='js/fb.js')
 		#sidebar
 			#panels
 				a#show-Toc.show_view.icon-list.active(data-view="Toc") TOC
@@ -100,7 +106,6 @@ html.no-js
 			#prev.arrow ‹
 			#viewer
 			#next.arrow ›
-			.ya-share2(data-services="vkontakte,twitter,facebook,gplus" data-title="Падение Трои" data-description="В Обществе любителей древности в Берлингтон-хаусе Оберманн прочел три лекции о происхождении греков, которое он прослеживал до древних жителей северной Европы.")
 			#progress
 				#progress-range
 					#progress-status
@@ -109,5 +114,24 @@ html.no-js
 						span#current-chapter
 			#loader
 				img(src="img/loader.gif")
+			#text-fragment-area
+				.save-quote-block.fragment-block
+					button.save-quote-button Сохранить цитату
+					.save-quote-message
+				.share-block.fragment-block
+					h3.fragment-block-title Поделиться
+					#share-block
+						div(class="fb-share-button" data-href="http://epubreader.herokuapp.com/reader" data-layout="button_count" data-size="small" data-mobile-iframe="false")
+							//- a(class="fb-xfbml-parse-ignore" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse") Share
+				.mistake-block.fragment-block
+					h3.fragment-block-title Сообщить об ошибке
+					textarea.text-fragment
+					h3.fragment-block-title Ваш комментарий
+					textarea.comment
+					.send-mistake-block
+						button.send-mistake-button Отправить
+				.close-button
+					i.icon-cancel
+				.result-message
 		.overlay
 			img(src="img/Spinner.gif")

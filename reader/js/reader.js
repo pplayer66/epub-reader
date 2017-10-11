@@ -85,6 +85,8 @@ EPUBJS.Reader = function(bookPath, _options) {
 		book.renderTo("viewer");
 
 		reader.ReaderController = EPUBJS.reader.ReaderController.call(reader, book);
+		reader.SettingsController = EPUBJS.reader.SettingsController.call(reader, book);
+		reader.TextFragmentController = EPUBJS.reader.TextFragmentController.call(reader, book);
 		reader.ControlsController = EPUBJS.reader.ControlsController.call(reader, book);
 		reader.SidebarController = EPUBJS.reader.SidebarController.call(reader, book);
 		reader.BookmarksController = EPUBJS.reader.BookmarksController.call(reader, book);
@@ -431,83 +433,6 @@ EPUBJS.reader.ControlsController = function(book) {
 						$slider.removeClass("icon-menu");
 				}
 		});
-
-		var activeClass = 'active-setting';
-		var activeNightWatch = 'active-night-watch';
-
-		var $fontSizeActive = $('#fontsize-setting').find('.active-setting');
-		var $fontSizes = $('#fontsize-setting').find('.setting-content-value');
-		$fontSizes.click(function(){
-			if ($(this)==$fontSizeActive){
-				return;
-			}
-			$fontSizeActive.removeClass(activeClass);
-			$fontSizeActive = $(this);
-			$fontSizeActive.addClass(activeClass);
-			var fontsize = $(this).text();
-			book.setStyle('font-size', fontsize);
-		});
-
-		var $themeActive = $('#theme-setting').find('.active-setting');
-		var $themes = $('#theme-setting').find('.setting-content-value');
-		var themesClickHandler = function(){
-			if ($(this)==$themeActive){
-				return;
-			}
-			$themeActive.removeClass(activeClass);
-			$themeActive = $(this);
-			$themeActive.addClass(activeClass);
-			var theme = $themeActive.css('background');
-			$('#main').css('background', theme);
-		};
-		$themes.click(themesClickHandler);
-
-		var $intervalActive = $('#interval-setting').find('.active-setting');
-		var $intervals = $('#interval-setting').find('.setting-content-value');
-		$intervals.click(function(){
-			if ($(this)==$intervalActive)
-				return;
-			$intervalActive.removeClass(activeClass);
-			$intervalActive = $(this);
-			$intervalActive.addClass(activeClass);
-			var interval = $intervalActive.attr('id').split('-');
-			if (interval.length > 1){
-				interval = interval.join('.');
-			}else{
-				interval = interval[0];
-			}
-			book.setStyle('line-height', interval);
-		});
-
-		var $fontfamilyActive = $('#fontfamily-setting').find('.active-setting');
-		var $fonts = $('#fontfamily-setting').find('.setting-content-value');
-		$fonts.click(function(){
-			if ($(this)==$fontfamilyActive)
-				return;
-			$fontfamilyActive.removeClass(activeClass);
-			$fontfamilyActive = $(this);
-			$fontfamilyActive.addClass(activeClass);
-			var font = $fontfamilyActive.attr('id')
-			book.setStyle('font-family', font);
-		});
-
-		var $nightWatchButton = $('#nightwatch-setting').find('i');
-		$nightWatchButton.click(function(){
-			if ($(this).hasClass('icon-moon')){
-				$themes.on('click', themesClickHandler);
-				$(this).removeClass('icon-moon');
-				$(this).addClass('icon-moon-inv');
-				var currentBG = $('#theme-setting').find('.active-setting').css('background');
-				$('#main').css('background', currentBG);
-				book.setStyle('color', '#655757');
-			}else{
-				$(this).removeClass('icon-moon-inv');
-				$(this).addClass('icon-moon');
-				$('#main').css('background', '#151515');
-				book.setStyle('color', '#afafaf');
-				$themes.off('click')
-			}
-		})
 
 		if(typeof screenfull !== 'undefined') {
 				$fullscreen.on("click", function() {
@@ -1020,6 +945,139 @@ EPUBJS.reader.ReaderController = function(book) {
 				"arrowKeys" : arrowKeys
 		};
 };
+EPUBJS.reader.SettingsController = function() {
+	var book = this.book;
+	var reader = this;
+
+	$('#settings').click(function(){
+		var $panel = $('#settings-panel');
+		if ($panel.hasClass('opened')){
+			$panel.removeClass('opened')
+			$panel.fadeOut(200);
+		}else{
+			$panel.addClass('opened')
+			$panel.fadeIn(200);
+		}
+	})
+
+	var activeClass = 'active-setting';
+	var activeNightWatch = 'active-night-watch';
+
+	var $fontSizeActive = $('#fontsize-setting').find('.active-setting');
+	var $fontSizes = $('#fontsize-setting').find('.setting-content-value');
+	$fontSizes.click(function(){
+		if ($(this)==$fontSizeActive){
+			return;
+		}
+		$fontSizeActive.removeClass(activeClass);
+		$fontSizeActive = $(this);
+		$fontSizeActive.addClass(activeClass);
+		var fontsize = $(this).text();
+		book.setStyle('font-size', fontsize);
+	});
+
+	var $themeActive = $('#theme-setting').find('.active-setting');
+	var $themes = $('#theme-setting').find('.setting-content-value');
+	var themesClickHandler = function(){
+		if ($(this)==$themeActive){
+			return;
+		}
+		$themeActive.removeClass(activeClass);
+		$themeActive = $(this);
+		$themeActive.addClass(activeClass);
+		var theme = $themeActive.css('background');
+		$('#main').css('background', theme);
+	};
+	$themes.click(themesClickHandler);
+
+	var $intervalActive = $('#interval-setting').find('.active-setting');
+	var $intervals = $('#interval-setting').find('.setting-content-value');
+	$intervals.click(function(){
+		if ($(this)==$intervalActive)
+			return;
+		$intervalActive.removeClass(activeClass);
+		$intervalActive = $(this);
+		$intervalActive.addClass(activeClass);
+		var interval = $intervalActive.attr('id').split('-');
+		if (interval.length > 1){
+			interval = interval.join('.');
+		}else{
+			interval = interval[0];
+		}
+		book.setStyle('line-height', interval);
+	});
+
+	var $fontfamilyActive = $('#fontfamily-setting').find('.active-setting');
+	var $fonts = $('#fontfamily-setting').find('.setting-content-value');
+	$fonts.click(function(){
+		if ($(this)==$fontfamilyActive)
+			return;
+		$fontfamilyActive.removeClass(activeClass);
+		$fontfamilyActive = $(this);
+		$fontfamilyActive.addClass(activeClass);
+		var font = $fontfamilyActive.attr('id')
+		book.setStyle('font-family', font);
+	});
+
+	var $nightWatchButton = $('#nightwatch-setting').find('i');
+	$nightWatchButton.click(function(){
+		if ($(this).hasClass('icon-moon')){
+			$themes.on('click', themesClickHandler);
+			$(this).removeClass('icon-moon');
+			$(this).addClass('icon-moon-inv');
+			var currentBG = $('#theme-setting').find('.active-setting').css('background');
+			$('#main').css('background', currentBG);
+			book.setStyle('color', '#655757');
+		}else{
+			$(this).removeClass('icon-moon-inv');
+			$(this).addClass('icon-moon');
+			$('#main').css('background', '#151515');
+			book.setStyle('color', '#afafaf');
+			$themes.off('click')
+		}
+	})
+};
+
+EPUBJS.reader.TextFragmentController = function(book) {
+	var book = this.book;
+
+	var $textFragmentController = $('#text-fragment-area');
+	var $textfragment = $('.text-fragment');
+	var $comment = $('.comment');
+	var $saveQuote = $('.save-quote-button');
+	var $saveQuoteMessage = $('.save-quote-message');
+	var shareBlock = document.getElementById('share-block');
+
+	$textFragmentController.css('display', 'none');
+
+
+	$('.close-button').click(function(){
+		$textFragmentController.fadeOut();
+	});
+
+
+
+	book.on('renderer:selected', function(range){
+		if (range) {
+			console.log(range);
+			var text = range.toString();
+			if (text.length > 0){
+				$textFragmentController.fadeIn();
+				$textfragment.val(text);
+			}
+		}
+	});
+	$('.send-mistake-button').click(function(){
+		$.post('/book/mistake', {mistake: $textfragment.val(), comment: $comment.val()}, function(data){
+			$('.result-message').text('Спасибо, за ваш комментарий').fadeIn().delay(600).fadeOut();
+		});
+	})
+	$saveQuote.click(function(){
+		$.post('/book/savequote', {quote: $textfragment.val()}, function(data){
+			$('.result-message').text('Цитата сохранена').fadeIn().delay(600).fadeOut();
+		})
+	});
+}
 
 EPUBJS.reader.SidebarController = function(book) {
 		var reader = this;

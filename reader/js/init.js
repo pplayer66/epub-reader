@@ -11,38 +11,22 @@ document.onreadystatechange = function () {
 		var goingToChapter;
 		var progress = 0;
 		var title = 'Падение Трои';
- 		var chaptersTotalProgress = 0;
- 		var initialCfi = 'epubcfi(/6/2[titlepage]!/4/1:0)';
+		var chaptersTotalProgress = 0;
+		var initialCfi = 'epubcfi(/6/2[titlepage]!/4/1:0)';
 
- 		$progressSlider = $('#progress-slider');
+		$progressSlider = $('#progress-slider');
 
 
- 		var getSliderPositionPercent = function(accuracy){
+		var getSliderPositionPercent = function(accuracy){
 			var parentWidth = $('#progress-range').width();
 			var width = $('#progress-status').width();
 			var percent = 100 * width / parentWidth;
 			return percent.toFixed(accuracy);
- 		}
-
-		$('#settings').click(function(){
-			var $panel = $('#settings-panel');
-			if ($panel.hasClass('opened')){
-				$panel.removeClass('opened')
-				$panel.fadeOut(200);
-			}else{
-				$panel.addClass('opened')
-				$panel.fadeIn(200);
-			}
-		})
+		}
 
 		var movingRenderer = function(){
 			
 		}
-
-
-		book.on('renderer:selected', function(range){
-			console.log(range);
-		});
 
 		$progressSlider.draggable(
 			{
@@ -69,39 +53,39 @@ document.onreadystatechange = function () {
 					$(this).css('transition', 'left .2s ease');
 					$('#current-chapter').css('display', 'none');
 					var currentChapterPosition = book.currentChapter.spinePos - 1;
-					// if (progress > book.chapters[currentChapterPosition].progress){
-					// 	book.goto(goingToChapter.cfi);
-					// }else if(progress < book.chapters[currentChapterPosition - 1].progress){
-					// 	book.goto(goingToChapter.cfi);
-					// }else{
-					// 	var spreads = book.renderer.spreads;
-					// 	var chapterPages = book.renderer.pageMap;
-					// 	if (spreads){
-					// 		for (i=0; i <= book.renderer.displayedPages*2; i+=2){
-					// 			if (chapterPages[i] && chapterPages[i+1]){
-					// 				// console.log(getCfiRangeTextLength(initialCfi, chapterPages[i+1].end));
-					// 				if ((getCfiRangeTextLength(initialCfi, chapterPages[i+1].end) + book.chapters[book.currentChapter.spinePos-2].progress) < progress)
-					// 					continue;
-					// 				else{
-					// 					book.goto(chapterPages[i].start);
-					// 					break;
-					// 				}
-					// 			}else if (chapterPages[i] && !chapterPages[i+1]){
-					// 				book.goto(chapterPages[i].start);
-					// 				break;
-					// 			}
-					// 		};
-					// 	}else {
-					// 		for (i=0; i <= book.renderer.displayedPages; i++){
-					// 			if ((getCfiRangeTextLength(initialCfi, chapterPages[i].end) + book.chapters[currentChapterPosition-1].progress) < progress){
-					// 				continue;
-					// 			}else{
-					// 				book.goto(chapterPages[i].start);
-					// 				break;
-					// 			}
-					// 		};
-					// 	}
-					// }
+					if (progress > book.chapters[currentChapterPosition].progress){
+						book.goto(goingToChapter.cfi);
+					}else if(progress < book.chapters[currentChapterPosition - 1].progress){
+						book.goto(goingToChapter.cfi);
+					}else{
+						var spreads = book.renderer.spreads;
+						var chapterPages = book.renderer.pageMap;
+						if (spreads){
+							for (i=0; i <= book.renderer.displayedPages*2; i+=2){
+								if (chapterPages[i] && chapterPages[i+1]){
+									// console.log(getCfiRangeTextLength(initialCfi, chapterPages[i+1].end));
+									if ((getCfiRangeTextLength(initialCfi, chapterPages[i+1].end) + book.chapters[book.currentChapter.spinePos-2].progress) < progress)
+										continue;
+									else{
+										book.goto(chapterPages[i].start);
+										break;
+									}
+								}else if (chapterPages[i] && !chapterPages[i+1]){
+									book.goto(chapterPages[i].start);
+									break;
+								}
+							};
+						}else {
+							for (i=0; i <= book.renderer.displayedPages; i++){
+								if ((getCfiRangeTextLength(initialCfi, chapterPages[i].end) + book.chapters[currentChapterPosition-1].progress) < progress){
+									continue;
+								}else{
+									book.goto(chapterPages[i].start);
+									break;
+								}
+							};
+						}
+					}
 				}
 		});
 		// book.getMetadata().then(function(meta){
@@ -154,21 +138,6 @@ document.onreadystatechange = function () {
 			var textLength = (text.trim()).length;
 			return textLength;
 		};
-		// book.on('renderer:visibleRangeChanged', function(cfirange){
-		// 	var text='';
-		// 	var cfi = new EPUBJS.EpubCFI();
-		// 	var startRange = cfi.generateRangeFromCfi('epubcfi(/6/2[titlepage]!/4/1:0)', book.renderer.render.document);
-		// 	var endRange = cfi.generateRangeFromCfi(cfirange.end, book.renderer.render.document);
-		// 	var fullRange = document.createRange();
-		// 	if (startRange)
-		// 		fullRange.setStart(startRange.startContainer, startRange.startOffset);
-		// 	if (endRange)
-		// 		fullRange.setEnd(endRange.startContainer, endRange.startOffset);
-		// 	text = fullRange.toString();
-		// 	var textLength = (text.trim()).length;
-		// 	console.log('from page change', textLength);
-		// });
-
 
 		book.on('renderer:chapterDisplayed', function() {
 			EPUBJS.core.addCss('/css/styles.css', null, book.renderer.doc.head);
@@ -216,7 +185,6 @@ document.onreadystatechange = function () {
 		};
 
 		var countProgress = function(cfirange){
-			console.log(book.renderer);
 			var text='';
 			var cfi = new EPUBJS.EpubCFI();
 			var startRange = cfi.generateRangeFromCfi(initialCfi, book.renderer.render.document);

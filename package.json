@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.2",
     "epubjs": "^0.2.20",
     "express": "^4.15.4",
     "jquery": "^2.1.4",

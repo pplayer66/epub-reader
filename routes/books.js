@@ -1,5 +1,4 @@
 const express = require('express');
-const ua_parser = require('ua-parser-js');
 
 const {Book} = require('../models/Book');
 
@@ -23,6 +22,16 @@ router.get('/chapters', (req, res)=>{
 			res.send(err);
 		res.send(result.chapters);
 	});
+});
+
+router.post('/savequote', function(req, res){
+	console.log(req.body);
+	res.send(req.body);
+});
+
+router.post('/mistake', function(req, res){
+	console.log(req.body);
+	res.send(req.body);
 });
 
 router.get('/addchapter', (req, res)=>{

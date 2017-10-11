@@ -1,8 +1,14 @@
 const express = require('express');
 const mongoose = require('./db/mongoose');
 const ua_parser = require('ua-parser-js');
-
+var bodyParser = require('body-parser')
 const app = express();
+
+app.use(bodyParser.urlencoded({ extended: false }))
+
+app.use(bodyParser.json())
+
+
 const port = process.env.PORT || 3000;
 const book = require('./routes/books');
 
