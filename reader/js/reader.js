@@ -1067,10 +1067,8 @@ EPUBJS.reader.TextFragmentController = function(book) {
 				Ya.share2('#share-block', {
 					theme: {
 						services: 'gplus,facebook,vkontakte,twitter,odnoklassniki',
-						counter: true,
 						lang: 'uk',
-						limit: 3,
-						size: 's',
+						size: 'm',
 						bare: false
 					},
 					content: {
