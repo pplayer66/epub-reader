@@ -1064,6 +1064,7 @@ EPUBJS.reader.TextFragmentController = function(book) {
 			if (text.length > 0){
 				$textFragmentController.fadeIn();
 				$textfragment.val(text);
+				$('#description-meta').attr('content', text);
 			}
 		}
 	});
