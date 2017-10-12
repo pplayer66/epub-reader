@@ -12,11 +12,17 @@ app.use(bodyParser.json())
 const port = process.env.PORT || 3000;
 const book = require('./routes/books');
 
+const {Book} = require('./models/Book');
+
 app.set('view engine', 'pug');
 app.use(express.static('reader'));
 
-app.get('/', (req, res)=>{
-	res.redirect('/reader');
+app.get('/home', (req, res)=>{
+	Book.find({}, function(err, books){
+		if (err)
+			res.send(err);
+		res.render('index', {books});
+	});
 });
 
 app.get('/dropdb', (req, res)=>{
@@ -26,7 +32,7 @@ app.get('/dropdb', (req, res)=>{
 });
 
 app.get('/reader', (req, res)=>{
-	res.render('index', {bookmarks: ['epubcfi(/6/12[id251]!/4/2[calibre_toc_4]/1:0)', 'epubcfi(/6/14[id250]!/4/38/1:0)', 'epubcfi(/6/22[id246]!/4/110/1:0)']});
+	res.render('reader', {book: req.query.book})
 });
 
 // app.use('/reader/addbookmark', (req, res)=>{
@@ -47,9 +53,9 @@ app.get('/browser', (req, res)=>{
 	res.send(ua.browser.name);
 });
 
-app.get('*', (req, res)=>{
-	res.redirect('/reader');
-});
+// app.get('*', (req, res)=>{
+// 	res.redirect('/reader');
+// });
 
 
 

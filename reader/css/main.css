@@ -31,6 +31,17 @@ ul{
 	clear: both;
 	visibility: hidden;
 }
+#booklist{
+	cursor: pointer;
+	position: absolute;
+	top: 60px;
+	background: #4f4f4f;
+	font-size: 14px;
+	color: #fff;
+	left: 0;
+	padding: 7px;
+	z-index: 5;
+}
 #main {
 	/* height: 500px; */
 	position: absolute;
@@ -113,6 +124,7 @@ ul{
 	/* margin-left: 10%; */
 	margin: 0 auto;
 	z-index: 2;
+	padding: 15px 0;
 	position: relative;
 	overflow: hidden;
 }

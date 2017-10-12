@@ -513,7 +513,7 @@ EPUBJS.reader.MetaController = function(meta) {
 
 				$title.html(title);
 				$author.html(author);
-				$dash.show();
+				// $dash.show();
 };
 EPUBJS.reader.NotesController = function() {
 		var book = this.book;
@@ -959,7 +959,6 @@ EPUBJS.reader.SettingsController = function() {
 			$panel.fadeIn(200);
 		}
 	})
-
 	var activeClass = 'active-setting';
 	var activeNightWatch = 'active-night-watch';
 
