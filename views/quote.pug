@@ -5,9 +5,16 @@ head
 	meta(property='og:title', content= title)
 	meta(property='og:type', content='website')
 	meta(property='og:url', content='http://www.epubreader.herokuapp.com/home')
-	meta(property='og:image', content='http://http://www.epubreader.herokuapp.com/img/ogimage.png')
 	meta(property='og:description', content= quote)
+	meta(property='og:image', content='http://www.epubreader.herokuapp.com/img/ogimage.png')
+	meta(property='mrc__share_title' content= title)
+	meta(name="mrc__share_description" content= quote)
+	meta(property='vk:image' content='http://www.epubreader.herokuapp.com/img/ogimage.png')
+	meta(name="twitter:title" content= title)
+	meta(name="twitter:description" content= quote)
+	meta(name='twitter:image' content='http://www.epubreader.herokuapp.com/img/ogimage.png')
 	title Document
+	link(href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet")
 	link(rel="stylesheet", href="css/quote.css")
 	script(src='https://yastatic.net/es5-shims/0.0.2/es5-shims.min.js')
 	script(src='https://yastatic.net/share2/share.js', async='async')
@@ -15,9 +22,10 @@ body
 	.wrapper
 		.quote-block
 			.container
+				h1 Поделиться цитатой в соц. сетях
 				.quote
-					h1= title
+					h2= title
 					.quote-text-section
-						p quote
+						p= quote
 					.controls
-						.ya-share2(data-services='vkontakte,twitter,facebook,gplus')
+						.ya-share2(data-services='vkontakte,twitter,facebook')
