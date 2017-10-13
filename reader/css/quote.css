@@ -1,0 +1,27 @@
+*{
+	box-sizing: 0;
+	border: none;
+	outline: none;
+	margin: 0;
+	padding: 0;
+	text-decoration: none;
+}
+li{
+	list-style: none;
+}
+.quote-block{
+	margin-top: 200px;
+}
+.container{
+	width: 960px;
+}
+.quote{
+	width: 50%;
+	margin: 0 auto;
+	box-shadow: 0 2px 2px 4px rgba(0, 0, 0, .2);
+}
+.controls{
+	padding: 10px;
+	text-align: center;
+	border-top: 1px solid #ededed;
+}

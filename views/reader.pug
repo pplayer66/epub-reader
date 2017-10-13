@@ -27,6 +27,8 @@ html.no-js(xmlns="w3.org/1999/xhtml")
 		script(src="//yastatic.net/share2/share.js")
 	body
 		#booklist << К списку книг
+		#savebook Сохранить книгу
+		#sendchapter Сохранть главу
 		#sidebar
 			#panels
 				a#show-Toc.show_view.icon-list.active(data-view="Toc") TOC
@@ -45,7 +47,7 @@ html.no-js(xmlns="w3.org/1999/xhtml")
 					textarea#note-text
 					button#note-anchor заметка
 				ol#notes
-		#main(data-title= book)
+		#main(data-book= book data-title= title)
 			#titlebar
 				#opener
 					a#slider.icon-menu Menu

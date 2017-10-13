@@ -12,7 +12,7 @@ body
 		.book-list
 			each book, indx in books
 				- var index = indx + 1;
-				.book(data-title= book.title data-src= 'book' + index + '.epub')
+				.book(data-title= book.title data-src= 'book' + index)
 					img(src='img/bookimg.jpg')
 					h3.book-title= book.title
 	script(src='js/index.js')

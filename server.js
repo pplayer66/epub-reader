@@ -25,6 +25,10 @@ app.get('/home', (req, res)=>{
 	});
 });
 
+app.get('/quote', (req, res)=>{
+	res.render('quote', req.query);
+});
+
 app.get('/dropdb', (req, res)=>{
 	mongoose.connection.db.dropDatabase(()=>{
 		res.send('database has been dropped');
@@ -32,7 +36,8 @@ app.get('/dropdb', (req, res)=>{
 });
 
 app.get('/reader', (req, res)=>{
-	res.render('reader', {book: req.query.book})
+	const {book, title} = req.query;
+	res.render('reader', {book, title});
 });
 
 // app.use('/reader/addbookmark', (req, res)=>{

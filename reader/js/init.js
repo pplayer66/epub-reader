@@ -2,7 +2,7 @@ document.onreadystatechange = function () {
 	if (document.readyState == "complete") {
 		EPUBJS.filePath = "js/libs/";
 		EPUBJS.cssPath = "css/";
-		window.reader = ePubReader($('#main').attr('data-title'));
+		window.reader = ePubReader(`${$('#main').attr('data-book')}.epub`);
 		var book = window.reader.book;
 		var $progressStatus = $('#progress-status');
 		var $progressBar = $('#progress');
@@ -18,34 +18,34 @@ document.onreadystatechange = function () {
 			window.location.href = '/home';
 		})
 
+		$('#savebook').click(function(){
+			$.get( "/book/addbook", {title}, function(data){
+				console.log(data);
+			});
+		})
+
+		$('#sendchapter').click(function(){
+			countCurrentChapterProgress();
+		})
 
 		book.getMetadata().then(function(meta){
 			title = meta.bookTitle;
 			console.log(title);
-			$.ajax({
-				url: `/book/addbook?title=${title}`,
-				type: 'GET',
-				success: function(data){
-					if (data === 'the book is already exists!'){
-						console.log(data);
-						$.ajax({
-							url: `/book/chapters?title=${title}`,
-							type: 'GET',
-							success: function(chapters){
-								if (!chapters)
-									return;
-								console.log(chapters);
-								book.chapters = _.keyBy(chapters, 'cfi');
-								book.total = +(chapters[chapters.length - 1].chapterProgress);
-								book.on('renderer:visibleRangeChanged', countProgress);
-							}
-						});
-					}else{
-						console.log(data);
-					}
-				}
-			});
 		});
+
+
+		// $.ajax({
+		// 	url: `/book/chapters?title=${title}`,
+		// 	type: 'GET',
+		// 	success: function(chapters){
+		// 		if (!chapters)
+		// 			return;
+		// 		console.log(chapters);
+		// 		book.chapters = _.keyBy(chapters, 'cfi');
+		// 		book.total = +(chapters[chapters.length - 1].chapterProgress);
+		// 		book.on('renderer:visibleRangeChanged', countProgress);
+		// 	}
+		// });
 
 		var getSliderPositionPercent = function(accuracy){
 			var parentWidth = $('#progress-range').width();
@@ -90,7 +90,7 @@ document.onreadystatechange = function () {
 		};
 
 		$progressSlider.draggable(
-			{
+		{
 				containment: "parent",
 				axis: "x",
 				start: function(){
@@ -161,9 +161,6 @@ document.onreadystatechange = function () {
 			return textLength;
 		};
 
-
-
-
 		book.on('renderer:chapterDisplayed', function() {
 			EPUBJS.core.addCss('/css/styles.css', null, book.renderer.doc.head);
 			// countCurrentChapterProgress();
@@ -177,13 +174,6 @@ document.onreadystatechange = function () {
 			var currentChapter = book.chapters[currentChapterCfi];
 			movingRenderer(currentChapter);
 		});
-
-		var triggerNextPage = function(t)
-		{
-			setTimeout(function(){
-				book.nextPage();
-			}, t)
-		};
 
 		var countProgress = function(){
 			var currentChapterPassedLength = getCfiRangeTextLength(book.renderer.pageMap[0].start, book.renderer.visibleRangeCfi.end);
