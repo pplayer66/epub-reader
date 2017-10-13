@@ -40,9 +40,10 @@ ul{
 	color: #fff;
 	left: 0;
 	padding: 7px;
-	z-index: 5;
+	z-index: 999;
 }
 .tohome{
+	z-index: 1000;
 	color: #fff;
 }
 .tohome:hover{
