@@ -42,6 +42,12 @@ ul{
 	padding: 7px;
 	z-index: 5;
 }
+.tohome{
+	color: #fff;
+}
+.tohome:hover{
+	opacity: .7;
+}
 #savebook{
 	display: none;
 	cursor: pointer;
