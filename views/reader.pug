@@ -113,9 +113,10 @@ html.no-js(xmlns="w3.org/1999/xhtml")
 				.save-quote-block.fragment-block
 					button.save-quote-button Сохранить цитату
 					.save-quote-message
+						span.save-message-text 
+						a.tomyQuotes(href='/quotes') перейти к моим цитатам
 				.share-block.fragment-block
-					h3.fragment-block-title Поделиться
-					#share-block
+					button.share-quote-button Поделиться цитатой
 				.mistake-block.fragment-block
 					h3.fragment-block-title Сообщить об ошибке
 					textarea.text-fragment
@@ -126,5 +127,8 @@ html.no-js(xmlns="w3.org/1999/xhtml")
 				.close-button
 					i.icon-cancel
 				.result-message
+					.result-message-text
+					.gotoComments
+						a.tomyComments(href='/mistakes') перейти к комментариям
 		.overlay
 			img(src="img/Spinner.gif")

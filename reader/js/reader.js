@@ -1039,12 +1039,16 @@ EPUBJS.reader.SettingsController = function() {
 
 EPUBJS.reader.TextFragmentController = function(book) {
 	var book = this.book;
-
+	var $title = $('#main').attr('data-title');
 	var $textFragmentController = $('#text-fragment-area');
 	var $textfragment = $('.text-fragment');
 	var $comment = $('.comment');
-	var $saveQuote = $('.save-quote-button');
-	var $saveQuoteMessage = $('.save-quote-message');
+	var $shareQuote = $('.share-quote-button');
+	var $saveQuote = $('.save-quote-button')
+	var $saveMessage = $('.save-quote-message');
+	var $saveMessageText = $('.save-message-text');
+	var $resultMessage = $('.result-message');
+	var $resultMessageText = $('.result-message-text');
 	var shareBlock = document.getElementById('share-block');
 
 	$textFragmentController.css('display', 'none');
@@ -1052,6 +1056,8 @@ EPUBJS.reader.TextFragmentController = function(book) {
 
 	$('.close-button').click(function(){
 		$textFragmentController.fadeOut();
+		$saveMessage.fadeOut();
+		$resultMessage.fadeOut();
 	});
 
 
@@ -1059,6 +1065,8 @@ EPUBJS.reader.TextFragmentController = function(book) {
 	book.on('renderer:selected', function(range){
 		if (range) {
 			console.log(range);
+			$saveMessage.fadeOut();
+			$resultMessage.fadeOut();
 			var text = range.toString();
 			if (text.length > 0){
 				$textFragmentController.fadeIn();
@@ -1068,13 +1076,22 @@ EPUBJS.reader.TextFragmentController = function(book) {
 	});
 
 	$('.send-mistake-button').click(function(){
-		$.post('/book/mistake', {mistake: $textfragment.val(), comment: $comment.val()}, function(data){
-			$('.result-message').text('Спасибо, за ваш комментарий').fadeIn().delay(600).fadeOut();
+		$.post('/savemistake', {quote: $textfragment.val(), comment: $comment.val(), title: $title}, function(data){
+			$resultMessage.fadeIn();
+			$resultMessageText.text('Спасибо за Ваш комментарии! ');
 		});
 	})
 
+	$shareQuote.click(function(){
+		window.location.href = `/quote?quote=${$textfragment.val()}&title=${$title}`;
+	});
+
 	$saveQuote.click(function(){
-		window.location.href = `/quote?quote=${$textfragment.val()}&title=${$('#main').attr('data-title')}`;
+		$.post('/savequote', {title: $title, quote: $textfragment.val()}, function(data){
+			console.log(data);
+			$saveMessage.fadeIn();
+			$saveMessageText.text('Цитата сохранена! ')
+		});
 	});
 }
 

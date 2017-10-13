@@ -8,10 +8,9 @@ document.onreadystatechange = function () {
 		var $progressBar = $('#progress');
 		var $progressValue = $('#progress-value');
 		var $progressSlider = $('#progress-slider');
-
 		var goingToChapter;
 		var progress = 0;
-		var title;
+		var title = $('#main').attr('data-title');
 		var currentChapterProgress = 0;
 
 		$('#booklist').click(function(){
@@ -34,18 +33,18 @@ document.onreadystatechange = function () {
 		});
 
 
-		// $.ajax({
-		// 	url: `/book/chapters?title=${title}`,
-		// 	type: 'GET',
-		// 	success: function(chapters){
-		// 		if (!chapters)
-		// 			return;
-		// 		console.log(chapters);
-		// 		book.chapters = _.keyBy(chapters, 'cfi');
-		// 		book.total = +(chapters[chapters.length - 1].chapterProgress);
-		// 		book.on('renderer:visibleRangeChanged', countProgress);
-		// 	}
-		// });
+		$.ajax({
+			url: `/book/chapters?title=${title}`,
+			type: 'GET',
+			success: function(chapters){
+				if (!chapters)
+					return;
+				console.log(chapters);
+				book.chapters = _.keyBy(chapters, 'cfi');
+				book.total = +(chapters[chapters.length - 1].chapterProgress);
+				book.on('renderer:visibleRangeChanged', countProgress);
+			}
+		});
 
 		var getSliderPositionPercent = function(accuracy){
 			var parentWidth = $('#progress-range').width();

@@ -1,0 +1,21 @@
+doctype html
+html(lang="en")
+head
+	meta(charset="UTF-8")
+	title Мои цитаты
+	link(href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet")
+	link(rel="stylesheet", href="css/quotes.css")
+body
+	.wrapper
+		.container
+			h1.page-title Мои цитаты
+			.quotes-section
+				.tomain
+					a.goto(href='/home') На главную
+				.quotes-block
+					each quote in quotes
+						.quote
+							.book-title= quote.title
+							.quote-text= quote.quote
+							.quote-share
+								a.toquote(href=`/quote?title=${quote.title}&quote=${quote.quote}`) поделиться цитатой

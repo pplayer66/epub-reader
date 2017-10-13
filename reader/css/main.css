@@ -803,18 +803,36 @@ input:-ms-placeholder {
 	width: 100%;
 	border-radius: 3px;
 	text-align: center;
-	background: #4e4e4e;
+	background: #b54949;
 	color: #fff;
 	outline: none;
 	border: none;
 	font-size: 0.9em;
-	font-weight: 400;
+	font-weight: 300;
 	padding-top: .7em;
 	padding-bottom: .7em;
 }
-
+.share-quote-button{
+	width: 100%;
+	border-radius: 3px;
+	text-align: center;
+	background: #4960b5;
+	color: #fff;
+	outline: none;
+	border: none;
+	font-size: 0.9em;
+	font-weight: 300;
+	padding-top: .7em;
+	padding-bottom: .7em;
+}
 .save-quote-button:hover{
-	background: #696969;
+	background: #ce6666;
+}
+.share-quote-button:hover{
+	background: #5b74ce;
+}
+.tomyQuotes{
+	color: blue;
 }
 .fragment-block{
 	margin-top: 20px;
@@ -834,6 +852,23 @@ input:-ms-placeholder {
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
+}
+.save-quote-message{
+	display: none;
+	position: absolute;
+	bottom: 110%;
+}
+.save-message-text{
+	font-size: 13px;
+	color: #555;
+}
+.tomyQuotes{
+	font-size: 13px;
+	color: #7474ce;
+	font-weight: 400;
+}
+.tomyQuotes:hover{
+	opacity: .7;
 }
 .close-button > i:hover{
 	color: #868686;
@@ -912,13 +947,25 @@ input:-ms-placeholder {
 	left: 0;
 	width: 100%;
 	font-weight: 300;
-	font-size: 1em;
-	text-align: center;
 	padding: 10px 0;
-	background-image: linear-gradient(to bottom, #a0926b, #3b2d65);
+	background: #484848;
+}
+.result-message-text{
+	font-size: 15px;
+	text-align: center;
 	color: #fff;
 }
-
+.gotoComments{
+	text-align: center;
+}
+.tomyComments{
+	font-size: 13px;
+	font-weight: 300;
+	color: #b7b7b7;
+}
+.tomyComments:hover{
+	opacity: .7;
+}
 /* For iPad portrait layouts only */
 @media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation: portrait) {
 		#viewer iframe {

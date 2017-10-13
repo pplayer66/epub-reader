@@ -1,0 +1,24 @@
+doctype html
+html(lang="en")
+head
+	meta(charset="UTF-8")
+	title Мои коментарии
+	link(href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet")
+	link(rel="stylesheet", href="css/mistakes.css")
+body
+	.wrapper
+		.container
+			h1.page-title Мои комментарии
+			.mistakes-section
+				.tomain
+					a.goto(href='/home') На главную
+				.mistakes-block
+					each mistake in mistakes
+						.mistake
+							.book-title= mistake.title
+							.mistake-quote
+								.mistake-quote-title Ошибка в тексте:
+								.mistake-quote-text= mistake.quote
+							.mistake-comment
+								.mistake-comment-title Мои комментарии:
+								.mistake-comment-text= mistake.comment

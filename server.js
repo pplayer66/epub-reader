@@ -9,10 +9,13 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 
-const port = process.env.PORT || 3000;
+// const port = process.env.PORT || 3000;
+const port = 3000;
 const book = require('./routes/books');
 
 const {Book} = require('./models/Book');
+const {Quote} = require('./models/Quote');
+const {Mistake} = require('./models/Mistake');
 
 app.set('view engine', 'pug');
 app.use(express.static('reader'));
@@ -23,6 +26,45 @@ app.get('/home', (req, res)=>{
 			res.send(err);
 		res.render('index', {books});
 	});
+});
+
+app.get('/quotes', (req, res)=>{
+	Quote.find({}, function(err, quotes){
+		if (err)
+			res.send(err);
+		res.render('quotes', {quotes});
+	});
+});
+
+app.get('/mistakes', (req, res)=>{
+	Mistake.find({}, function(err, mistakes){
+		if (err)
+			res.send(err);
+		res.render('mistakes', {mistakes});
+	});
+});
+
+app.get('/mist', (req, res)=>{
+	Mistake.find({}, function(err, mistakes){
+		if (err)
+			res.send(err);
+		res.send(mistakes);
+	});
+});
+
+app.post('/savequote', (req, res)=>{
+	const {title, quote} = req.body;
+	new Quote({title, quote}).save((err, quote)=>{
+		res.send('ok');
+	})
+});
+
+app.post('/savemistake', (req, res)=>{
+	const {title, quote, comment} = req.body;
+	console.log(title);
+	new Mistake({title, quote, comment}).save((err, mistake)=>{
+		res.send('ok');
+	})
 });
 
 app.get('/quote', (req, res)=>{
@@ -40,29 +82,11 @@ app.get('/reader', (req, res)=>{
 	res.render('reader', {book, title});
 });
 
-// app.use('/reader/addbookmark', (req, res)=>{
-// 	res.send({bookmark: req.query.bm});
-// });
-
 app.use('/book', book);
-
-app.get('/device', (req, res)=>{
-	const {device:{type}} = ua_parser(req.headers['user-agent']);
-	console.log(type);
-	res.send(type);
-
-});
-
-app.get('/browser', (req, res)=>{
-	var ua = ua_parser(req.headers['user-agent']);
-	res.send(ua.browser.name);
-});
 
 // app.get('*', (req, res)=>{
 // 	res.redirect('/reader');
 // });
 
-
-
-// app.listen(port, ()=>console.log('server is running on port', port));
+app.listen(port, ()=>console.log('server is running on port', port));
 

@@ -1,13 +1,9 @@
 const mongoose = require('mongoose');
 
-const bookSchema = mongoose.Schema({
+const quoteSchema = mongoose.Schema({
 	title: String,
-	chapters:[
-		{
-			cfi: String,
-			chapterLength: Number,
-			chapterProgress: Number,
-			label: String
-		}
-	]
+	quote: String
 });
+
+const Quote = mongoose.model('Quote', quoteSchema);
+module.exports = {Quote};

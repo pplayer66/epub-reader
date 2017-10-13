@@ -35,15 +35,6 @@ router.get('/chapters', (req, res)=>{
 	});
 });
 
-// router.post('/savequote', function(req, res){
-// 	console.log(req.body);
-// 	res.send(req.body);
-// });
-
-router.post('/mistake', function(req, res){
-	console.log(req.body);
-	res.send(req.body);
-});
 
 router.get('/addchapter', (req, res)=>{
 	const { title, cfi, label, chapterLength, chapterProgress } = req.query;
