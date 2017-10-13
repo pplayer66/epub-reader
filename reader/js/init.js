@@ -14,9 +14,9 @@ document.onreadystatechange = function () {
 		var title;
 		var currentChapterProgress = 0;
 
-		$('#booklist').click(function(){
-			window.location.href = '/home';
-		})
+		// $('#booklist').click(function(){
+		// 	window.location.href = '/home';
+		// })
 
 		$('#savebook').click(function(){
 			$.get( "/book/addbook", {title}, function(data){
