@@ -5,10 +5,10 @@ head
 	meta(property='og:title', content= title)
 	meta(property='og:type', content='website')
 	meta(property='og:url', content='http://www.epubreader.herokuapp.com/home')
-	meta(property='og:image', content='http://ia.media-imdb.com/images/rock.jpg')
+	meta(property='og:image', content='http://http://www.epubreader.herokuapp.com/img/ogimage.png')
 	meta(property='og:description', content= quote)
 	title Document
-	link(rel="stylesheet", href="quote.css")
+	link(rel="stylesheet", href="css/quote.css")
 	script(src='https://yastatic.net/es5-shims/0.0.2/es5-shims.min.js')
 	script(src='https://yastatic.net/share2/share.js', async='async')
 body
@@ -16,6 +16,8 @@ body
 		.quote-block
 			.container
 				.quote
+					h1= title
 					.quote-text-section
+						p quote
 					.controls
 						.ya-share2(data-services='vkontakte,twitter,facebook,gplus')
