@@ -6,13 +6,13 @@ head
 	meta(property='og:type', content='website')
 	meta(property='og:url', content='http://www.epubreader.herokuapp.com/home')
 	meta(property='og:description', content= quote)
-	meta(property='og:image', content='http://www.epubreader.herokuapp.com/img/ogimage.png')
+	meta(property='og:image', content='http://epubreader.herokuapp.com/img/ogimage.png')
 	meta(property='mrc__share_title' content= title)
 	meta(name="mrc__share_description" content= quote)
-	meta(property='vk:image' content='http://www.epubreader.herokuapp.com/img/ogimage.png')
+	meta(property='vk:image' content='http://epubreader.herokuapp.com/img/ogimage.png')
 	meta(name="twitter:title" content= title)
 	meta(name="twitter:description" content= quote)
-	meta(name='twitter:image' content='http://www.epubreader.herokuapp.com/img/ogimage.png')
+	meta(name='twitter:image' content='http://epubreader.herokuapp.com/img/ogimage.png')
 	title Document
 	link(href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet")
 	link(rel="stylesheet", href="css/quote.css")
@@ -28,4 +28,4 @@ body
 					.quote-text-section
 						p= quote
 					.controls
-						.ya-share2(data-services='vkontakte,twitter,facebook')
+						.ya-share2(data-services='vkontakte,twitter,facebook' data-description= quote data-title= title data-image='http://epubreader.herokuapp.com/img/ogimage.png')
